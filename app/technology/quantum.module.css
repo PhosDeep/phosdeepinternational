@@ -1,0 +1,559 @@
+.quantumVisual {
+  position: absolute;
+  width: min(60vw, 920px);
+  height: min(60vw, 920px);
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: quantumEnter 1.3s ease-out forwards;
+}
+
+.quantumGlow {
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(85, 124, 255, 0.18),
+      rgba(168, 60, 255, 0.1) 35%,
+      transparent 70%
+    );
+
+  filter: blur(40px);
+
+  animation:
+    quantumGlow 5s
+    ease-in-out
+    infinite;
+}
+
+.quantumField {
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+
+  background:
+    repeating-radial-gradient(
+      circle,
+      transparent 0,
+      transparent 20px,
+      rgba(85, 124, 255, 0.045) 21px,
+      transparent 22px
+    );
+
+  animation:
+    fieldPulse 6s
+    ease-in-out
+    infinite;
+}
+
+.quantumOrbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.quantumOrbitA {
+  width: 88%;
+  height: 32%;
+  border-color: rgba(85, 124, 255, 0.3);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(28deg);
+
+  animation:
+    quantumOrbitA
+    15s
+    linear
+    infinite;
+}
+
+.quantumOrbitB {
+  width: 76%;
+  height: 48%;
+  border-color: rgba(168, 60, 255, 0.25);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-42deg);
+
+  animation:
+    quantumOrbitB
+    19s
+    linear
+    infinite;
+}
+
+.quantumOrbitC {
+  width: 58%;
+  height: 76%;
+  border-color: rgba(43, 217, 255, 0.18);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(65deg);
+
+  animation:
+    quantumOrbitC
+    23s
+    linear
+    infinite;
+}
+
+.quantumCore {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 150px;
+  height: 150px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coreRing,
+.coreRingInner {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+.coreRing {
+  inset: 0;
+  border-color:
+    rgba(85, 124, 255, 0.5);
+
+  animation:
+    coreRotate
+    8s
+    linear
+    infinite;
+}
+
+.coreRingInner {
+  inset: 20px;
+  border-color:
+    rgba(168, 60, 255, 0.55);
+
+  animation:
+    coreRotateReverse
+    5s
+    linear
+    infinite;
+}
+
+.corePoint {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      white,
+      #557cff 30%,
+      #a83cff 65%,
+      transparent 70%
+    );
+
+  box-shadow:
+    0 0 25px
+    rgba(85, 124, 255, 0.9);
+
+  animation:
+    corePulse
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+.quantumConnections {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.entanglement {
+  fill: none;
+
+  stroke:
+    url(#quantumGradient);
+
+  stroke-width: 1;
+
+  stroke-dasharray:
+    4 11;
+
+  opacity: 0.6;
+
+  animation:
+    entangleFlow
+    7s
+    linear
+    infinite;
+}
+
+.qubitField {
+  position: absolute;
+  inset: 0;
+}
+
+.qubit {
+  position: absolute;
+
+  width: 38px;
+  height: 38px;
+
+  margin:
+    -19px 0 0 -19px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(85, 124, 255, 0.35);
+
+  background:
+    rgba(5, 4, 15, 0.7);
+
+  transition:
+    all 0.5s ease;
+}
+
+.qubit span {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background:
+    #557cff;
+
+  box-shadow:
+    0 0 14px
+    rgba(85, 124, 255, 0.9);
+}
+
+.qubit small {
+  position: absolute;
+
+  top: 42px;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.12em;
+
+  color:
+    rgba(255, 255, 255, 0.28);
+}
+
+.activeQubit {
+  border-color:
+    #2bd9ff;
+
+  box-shadow:
+    0 0 25px
+    rgba(43, 217, 255, 0.3);
+
+  transform:
+    scale(1.3);
+}
+
+.activeQubit span {
+  background:
+    #2bd9ff;
+
+  box-shadow:
+    0 0 18px
+    rgba(43, 217, 255, 1);
+}
+
+.quantumProbability {
+  position: absolute;
+
+  left: 50%;
+  bottom: 18%;
+
+  transform:
+    translateX(-50%);
+
+  width: 160px;
+  height: 35px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.quantumProbability span {
+  flex: 1;
+
+  height:
+    calc(
+      10px +
+      var(--i, 1) * 5px
+    );
+
+  background:
+    linear-gradient(
+      to top,
+      #557cff,
+      #a83cff
+    );
+
+  opacity: 0.5;
+
+  animation:
+    probability
+    1.5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.quantumProbability span:nth-child(1) {
+  height: 12px;
+}
+
+.quantumProbability span:nth-child(2) {
+  height: 23px;
+  animation-delay: 0.1s;
+}
+
+.quantumProbability span:nth-child(3) {
+  height: 32px;
+  animation-delay: 0.2s;
+}
+
+.quantumProbability span:nth-child(4) {
+  height: 20px;
+  animation-delay: 0.3s;
+}
+
+.quantumProbability span:nth-child(5) {
+  height: 14px;
+  animation-delay: 0.4s;
+}
+
+.quantumStatus,
+.quantumReadout {
+  position: absolute;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.14em;
+}
+
+.quantumStatus {
+  top: 16%;
+  right: 7%;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding:
+    8px 11px;
+
+  border:
+    1px solid
+    rgba(85, 124, 255, 0.2);
+
+  background:
+    rgba(5, 4, 15, 0.65);
+
+  backdrop-filter:
+    blur(10px);
+
+  color:
+    rgba(255, 255, 255, 0.35);
+}
+
+.quantumStatus strong {
+  color:
+    #557cff;
+}
+
+.quantumDot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background:
+    #2bd9ff;
+
+  box-shadow:
+    0 0 10px
+    rgba(43, 217, 255, 0.9);
+
+  animation:
+    blink 1.4s
+    infinite;
+}
+
+.quantumReadout {
+  left: 8%;
+  bottom: 15%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  color:
+    rgba(255, 255, 255, 0.2);
+}
+
+.quantumReadout span:last-child {
+  color:
+    rgba(43, 217, 255, 0.55);
+}
+
+@keyframes quantumEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(-50%)
+      scale(0.86);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(-50%)
+      scale(1);
+  }
+}
+
+@keyframes quantumGlow {
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes fieldPulse {
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes quantumOrbitA {
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(388deg);
+  }
+}
+
+@keyframes quantumOrbitB {
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(-402deg);
+  }
+}
+
+@keyframes quantumOrbitC {
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(425deg);
+  }
+}
+
+@keyframes coreRotate {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+@keyframes coreRotateReverse {
+  to {
+    transform:
+      rotate(-360deg);
+  }
+}
+
+@keyframes corePulse {
+  50% {
+    transform:
+      scale(1.35);
+  }
+}
+
+@keyframes entangleFlow {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+
+@keyframes probability {
+  to {
+    transform:
+      scaleY(0.45);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 900px) {
+  .quantumVisual {
+    width: 75vw;
+    height: 75vw;
+    right: -8vw;
+    opacity: 0.65;
+  }
+}
+
+@media (max-width: 700px) {
+  .quantumVisual {
+    width: 100vw;
+    height: 100vw;
+    right: -25vw;
+    top: 42%;
+    opacity: 0.4;
+  }
+
+  .quantumReadout {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quantumVisual *,
+  .quantumVisual {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,1303 @@
+.cloudVisual {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   ATMOSPHERE
+========================================================= */
+
+.cloudGlow {
+  position: absolute;
+
+  width: 65%;
+  height: 65%;
+
+  left: 50%;
+  top: 48%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(43, 217, 255, 0.12) 0%,
+      rgba(85, 124, 255, 0.08) 30%,
+      rgba(168, 60, 255, 0.04) 55%,
+      transparent 72%
+    );
+
+  filter: blur(18px);
+
+  animation:
+    cloudBreathing 7s ease-in-out infinite;
+}
+
+
+.cloudGlowSecondary {
+  position: absolute;
+
+  width: 42%;
+  height: 42%;
+
+  left: 68%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(43, 217, 255, 0.08),
+      transparent 68%
+    );
+
+  filter: blur(25px);
+
+  animation:
+    cloudDrift 9s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.cloudGrid {
+  position: absolute;
+
+  width: 95%;
+  height: 55%;
+
+  left: 50%;
+  top: 62%;
+
+  transform:
+    translate(-50%, -50%)
+    perspective(800px)
+    rotateX(62deg);
+
+  background-image:
+    linear-gradient(
+      rgba(43, 217, 255, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(85, 124, 255, 0.07) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    42px 42px;
+
+  opacity: 0.45;
+
+  mask-image:
+    radial-gradient(
+      ellipse,
+      black 10%,
+      transparent 72%
+    );
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse,
+      black 10%,
+      transparent 72%
+    );
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.cloudParticles {
+  position: absolute;
+  inset: 0;
+}
+
+.cloudParticles span {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background: #2bd9ff;
+
+  box-shadow:
+    0 0 7px rgba(43, 217, 255, 0.8);
+
+  opacity: 0.35;
+
+  animation:
+    cloudParticle 4s ease-in-out infinite;
+}
+
+.cloudParticles span:nth-child(1) {
+  left: 12%;
+  top: 27%;
+}
+
+.cloudParticles span:nth-child(2) {
+  left: 26%;
+  top: 19%;
+  animation-delay: 1s;
+}
+
+.cloudParticles span:nth-child(3) {
+  left: 72%;
+  top: 22%;
+  animation-delay: 1.8s;
+}
+
+.cloudParticles span:nth-child(4) {
+  left: 88%;
+  top: 42%;
+  animation-delay: 0.4s;
+}
+
+.cloudParticles span:nth-child(5) {
+  left: 19%;
+  top: 68%;
+  animation-delay: 2s;
+}
+
+.cloudParticles span:nth-child(6) {
+  left: 82%;
+  top: 70%;
+  animation-delay: 1.2s;
+}
+
+.cloudParticles span:nth-child(7) {
+  left: 35%;
+  top: 76%;
+  animation-delay: 2.5s;
+}
+
+.cloudParticles span:nth-child(8) {
+  left: 63%;
+  top: 74%;
+  animation-delay: 0.8s;
+}
+
+.cloudParticles span:nth-child(9) {
+  left: 54%;
+  top: 11%;
+  animation-delay: 1.5s;
+}
+
+.cloudParticles span:nth-child(10) {
+  left: 44%;
+  top: 30%;
+  animation-delay: 2.3s;
+}
+
+.cloudParticles span:nth-child(11) {
+  left: 91%;
+  top: 57%;
+  animation-delay: 0.9s;
+}
+
+.cloudParticles span:nth-child(12) {
+  left: 8%;
+  top: 50%;
+  animation-delay: 1.7s;
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.cloudOrbit {
+  position: absolute;
+
+  left: 50%;
+  top: 49%;
+
+  width: 68%;
+  height: 34%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-16deg);
+
+  border: 1px solid
+    rgba(43, 217, 255, 0.14);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 30px
+    rgba(43, 217, 255, 0.03);
+}
+
+.cloudOrbitOne {
+  animation:
+    orbitRotateOne 14s linear infinite;
+}
+
+.cloudOrbitTwo {
+  width: 57%;
+  height: 67%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(42deg);
+
+  border-color:
+    rgba(168, 60, 255, 0.14);
+
+  animation:
+    orbitRotateTwo 18s linear infinite reverse;
+}
+
+.cloudOrbitThree {
+  width: 88%;
+  height: 24%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(8deg);
+
+  border-color:
+    rgba(85, 124, 255, 0.09);
+
+  animation:
+    orbitRotateThree 20s linear infinite;
+}
+
+
+/* =========================================================
+   NETWORK SVG
+========================================================= */
+
+.cloudConnections {
+  position: absolute;
+
+  width: 82%;
+  height: 78%;
+
+  left: 50%;
+  top: 51%;
+
+  transform:
+    translate(-50%, -50%);
+
+  overflow: visible;
+}
+
+
+.networkLines path {
+  fill: none;
+
+  stroke:
+    url(#cloudLineGradient);
+
+  stroke-width: 1.2;
+
+  stroke-dasharray: 7 10;
+
+  opacity: 0.58;
+
+  animation:
+    networkFlow 6s linear infinite;
+}
+
+.secondaryLines path {
+  fill: none;
+
+  stroke:
+    rgba(85, 124, 255, 0.18);
+
+  stroke-width: 1;
+
+  stroke-dasharray: 3 9;
+
+  opacity: 0.5;
+}
+
+
+.dataPacket {
+  fill: #2bd9ff;
+
+  filter:
+    drop-shadow(
+      0 0 7px
+      rgba(43, 217, 255, 0.9)
+    );
+
+  animation:
+    packetPulse 2s ease-in-out infinite;
+}
+
+.packetDelay {
+  animation-delay: 0.7s;
+}
+
+.packetDelayTwo {
+  animation-delay: 1.4s;
+}
+
+
+/* =========================================================
+   CENTRAL CLOUD
+========================================================= */
+
+.cloudCore {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  width: 280px;
+  height: 220px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.coreOuterRing {
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(43, 217, 255, 0.18);
+
+  box-shadow:
+    inset 0 0 40px
+    rgba(43, 217, 255, 0.04);
+
+  animation:
+    coreRotate 18s linear infinite;
+}
+
+
+.coreMiddleRing {
+  position: absolute;
+
+  width: 175px;
+  height: 175px;
+
+  border-radius: 50%;
+
+  border:
+    1px dashed
+    rgba(168, 60, 255, 0.25);
+
+  animation:
+    coreRotateReverse 12s linear infinite;
+}
+
+
+.coreGlow {
+  position: absolute;
+
+  width: 150px;
+  height: 110px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(43, 217, 255, 0.13),
+      rgba(85, 124, 255, 0.08) 40%,
+      transparent 72%
+    );
+
+  filter: blur(10px);
+
+  animation:
+    coreGlow 4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CLOUD ICON
+========================================================= */
+
+.cloudIcon {
+  position: relative;
+
+  width: 125px;
+  height: 75px;
+
+  z-index: 4;
+
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(43, 217, 255, 0.2)
+    );
+}
+
+
+.cloudBase {
+  position: absolute;
+
+  left: 8px;
+  bottom: 5px;
+
+  width: 110px;
+  height: 40px;
+
+  border-radius:
+    28px 28px 18px 18px;
+
+  border:
+    1px solid
+    rgba(43, 217, 255, 0.65);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(43, 217, 255, 0.14),
+      rgba(85, 124, 255, 0.09),
+      rgba(168, 60, 255, 0.08)
+    );
+
+  box-shadow:
+    inset 0 0 25px
+    rgba(43, 217, 255, 0.07),
+    0 0 25px
+    rgba(43, 217, 255, 0.08);
+}
+
+
+.cloudBubbleOne,
+.cloudBubbleTwo,
+.cloudBubbleThree {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(43, 217, 255, 0.65);
+
+  background:
+    rgba(7, 5, 18, 0.85);
+}
+
+
+.cloudBubbleOne {
+  width: 48px;
+  height: 48px;
+
+  left: 16px;
+  bottom: 26px;
+}
+
+
+.cloudBubbleTwo {
+  width: 60px;
+  height: 60px;
+
+  left: 43px;
+  bottom: 25px;
+}
+
+
+.cloudBubbleThree {
+  width: 38px;
+  height: 38px;
+
+  right: 7px;
+  bottom: 27px;
+}
+
+
+.corePulse {
+  position: absolute;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #2bd9ff;
+
+  box-shadow:
+    0 0 8px #2bd9ff,
+    0 0 22px rgba(43, 217, 255, 0.7);
+
+  z-index: 10;
+
+  animation:
+    corePulse 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   NODES
+========================================================= */
+
+.cloudNodes {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+.cloudNode {
+  position: absolute;
+
+  width: 70px;
+  height: 70px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.nodeVisual {
+  position: relative;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.nodeOuter {
+  position: absolute;
+
+  inset: 0;
+
+  border:
+    1px solid
+    rgba(85, 124, 255, 0.45);
+
+  transform: rotate(45deg);
+
+  transition:
+    all 0.4s ease;
+}
+
+
+.nodeInner {
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(43, 217, 255, 0.7);
+
+  background:
+    rgba(43, 217, 255, 0.08);
+
+  box-shadow:
+    0 0 12px
+    rgba(43, 217, 255, 0.35);
+}
+
+
+.nodePoint {
+  position: absolute;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #2bd9ff;
+
+  box-shadow:
+    0 0 8px
+    rgba(43, 217, 255, 0.9);
+}
+
+
+.nodeInfo {
+  position: absolute;
+
+  top: 42px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  white-space: nowrap;
+
+  font-family:
+    "JetBrains Mono",
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.16em;
+
+  color:
+    rgba(255, 255, 255, 0.38);
+}
+
+
+.nodeInfo strong {
+  font-size: 7px;
+
+  font-weight: 500;
+
+  color:
+    rgba(43, 217, 255, 0.45);
+
+  letter-spacing: 0.2em;
+}
+
+
+.activeNode .nodeOuter {
+  border-color:
+    rgba(43, 217, 255, 0.9);
+
+  box-shadow:
+    0 0 18px
+    rgba(43, 217, 255, 0.22);
+
+  animation:
+    nodeRotate 3s linear infinite;
+}
+
+
+.activeNode .nodeInner {
+  background:
+    rgba(43, 217, 255, 0.2);
+
+  box-shadow:
+    0 0 18px
+    rgba(43, 217, 255, 0.7);
+}
+
+
+.activeNode .nodeInfo strong {
+  color: #2bd9ff;
+}
+
+
+/* =========================================================
+   DATA STREAMS
+========================================================= */
+
+.dataStreams {
+  position: absolute;
+
+  inset: 0;
+}
+
+
+.dataStreams span {
+  position: absolute;
+
+  width: 70px;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(43, 217, 255, 0.8),
+      transparent
+    );
+
+  opacity: 0;
+
+  animation:
+    streamTravel 5s linear infinite;
+}
+
+
+.streamOne {
+  left: 25%;
+  top: 43%;
+
+  transform: rotate(12deg);
+}
+
+
+.streamTwo {
+  left: 50%;
+  top: 34%;
+
+  transform: rotate(-18deg);
+
+  animation-delay: 1.3s !important;
+}
+
+
+.streamThree {
+  left: 61%;
+  top: 58%;
+
+  transform: rotate(24deg);
+
+  animation-delay: 2.6s !important;
+}
+
+
+.streamFour {
+  left: 34%;
+  top: 63%;
+
+  transform: rotate(-12deg);
+
+  animation-delay: 3.7s !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.cloudStatus {
+  position: absolute;
+
+  right: 5%;
+  top: 15%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding:
+    9px 13px;
+
+  border:
+    1px solid
+    rgba(43, 217, 255, 0.16);
+
+  background:
+    rgba(5, 4, 14, 0.6);
+
+  backdrop-filter:
+    blur(10px);
+
+  font-family:
+    "JetBrains Mono",
+    monospace;
+
+  font-size: 7px;
+
+  letter-spacing: 0.14em;
+
+  color:
+    rgba(255, 255, 255, 0.4);
+}
+
+
+.cloudStatus strong {
+  color: #37e69c;
+
+  font-size: 7px;
+
+  letter-spacing: 0.16em;
+}
+
+
+.statusIndicator {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #37e69c;
+
+  box-shadow:
+    0 0 8px
+    rgba(55, 230, 156, 0.8);
+
+  animation:
+    statusBlink 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   READOUT
+========================================================= */
+
+.cloudReadout {
+  position: absolute;
+
+  left: 8%;
+  bottom: 14%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  font-family:
+    "JetBrains Mono",
+    monospace;
+
+  font-size: 7px;
+
+  letter-spacing: 0.18em;
+
+  color:
+    rgba(255, 255, 255, 0.23);
+}
+
+
+.cloudReadout span:last-child {
+  color:
+    rgba(43, 217, 255, 0.5);
+}
+
+
+/* =========================================================
+   SCALABILITY
+========================================================= */
+
+.scaleIndicator {
+  position: absolute;
+
+  right: 9%;
+  bottom: 13%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-family:
+    "JetBrains Mono",
+    monospace;
+
+  font-size: 7px;
+
+  letter-spacing: 0.18em;
+
+  color:
+    rgba(255, 255, 255, 0.25);
+}
+
+
+.scaleIndicator strong {
+  font-size: 24px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  color:
+    rgba(43, 217, 255, 0.45);
+}
+
+
+.scaleBars {
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 3px;
+
+  height: 20px;
+}
+
+
+.scaleBars i {
+  display: block;
+
+  width: 3px;
+
+  background:
+    linear-gradient(
+      to top,
+      #2bd9ff,
+      #557cff
+    );
+
+  opacity: 0.5;
+}
+
+
+.scaleBars i:nth-child(1) {
+  height: 5px;
+}
+
+.scaleBars i:nth-child(2) {
+  height: 7px;
+}
+
+.scaleBars i:nth-child(3) {
+  height: 9px;
+}
+
+.scaleBars i:nth-child(4) {
+  height: 11px;
+}
+
+.scaleBars i:nth-child(5) {
+  height: 13px;
+}
+
+.scaleBars i:nth-child(6) {
+  height: 15px;
+}
+
+.scaleBars i:nth-child(7) {
+  height: 17px;
+}
+
+.scaleBars i:nth-child(8) {
+  height: 19px;
+
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes cloudBreathing {
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.96);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.04);
+    opacity: 1;
+  }
+}
+
+
+@keyframes cloudDrift {
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      translate(0, 0);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      translate(20px, -12px);
+  }
+}
+
+
+@keyframes cloudParticle {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    opacity: 0.2;
+  }
+
+  50% {
+    transform:
+      translateY(-12px)
+      scale(1.7);
+
+    opacity: 0.7;
+  }
+}
+
+
+@keyframes orbitRotateOne {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(-16deg)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(-16deg)
+      rotate(360deg);
+  }
+}
+
+
+@keyframes orbitRotateTwo {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(42deg)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(42deg)
+      rotate(-360deg);
+  }
+}
+
+
+@keyframes orbitRotateThree {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(8deg)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(8deg)
+      rotate(360deg);
+  }
+}
+
+
+@keyframes networkFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+
+@keyframes packetPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+
+@keyframes coreRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes coreRotateReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+@keyframes coreGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+
+@keyframes corePulse {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+
+@keyframes nodeRotate {
+  from {
+    transform: rotate(45deg);
+  }
+
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+
+@keyframes streamTravel {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-80px)
+      scaleX(0.5);
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(180px)
+      scaleX(1.3);
+  }
+}
+
+
+@keyframes statusBlink {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .cloudCore {
+    width: 220px;
+    height: 180px;
+  }
+
+  .coreOuterRing {
+    width: 175px;
+    height: 175px;
+  }
+
+  .coreMiddleRing {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cloudIcon {
+    transform: scale(0.8);
+  }
+
+  .cloudStatus {
+    right: 3%;
+    top: 12%;
+  }
+
+  .scaleIndicator {
+    right: 4%;
+  }
+
+  .cloudReadout {
+    left: 4%;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .cloudOrbit {
+    width: 90%;
+  }
+
+  .cloudNodes {
+    transform: scale(0.8);
+  }
+
+  .cloudStatus {
+    transform: scale(0.8);
+    transform-origin: top right;
+  }
+
+  .scaleIndicator {
+    transform: scale(0.8);
+    transform-origin: bottom right;
+  }
+
+  .cloudReadout {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+  }
+}
