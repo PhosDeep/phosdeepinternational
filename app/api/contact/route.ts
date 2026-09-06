@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 type ContactPayload = {
   name?: string;
@@ -10,12 +10,54 @@ type ContactPayload = {
   enquiryType?: string;
   technology?: string;
   message?: string;
+  website?: string;
 };
+
+const enquiryTypes = new Set([
+  "Technology / Consulting",
+  "Corporate Training",
+  "University / Academic Program",
+  "Research Collaboration",
+  "Internship / Career",
+  "Other",
+]);
+
+const technologies = new Set([
+  "Cybersecurity",
+  "Artificial Intelligence",
+  "Generative AI",
+  "Quantum Computing",
+  "Blockchain",
+  "Cloud Computing",
+  "Data Science",
+  "Other",
+]);
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+function withinLimit(value: string | null | undefined, limit: number) {
+  return value == null || value.length <= limit;
+}
 
 export async function POST(request: Request) {
   try {
-    const body =
-      (await request.json()) as ContactPayload;
+    const parsedBody = await request.json();
+
+    if (!parsedBody || typeof parsedBody !== "object" || Array.isArray(parsedBody)) {
+      return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    }
+
+    const body = parsedBody as ContactPayload;
+
+    if (body.website) {
+      return NextResponse.json({ success: true }, { status: 201 });
+    }
+
+    if (Object.values(body).some((value) => value !== undefined && !isString(value))) {
+      return NextResponse.json({ error: "Invalid form data." }, { status: 400 });
+    }
 
     const name = body.name?.trim();
     const email = body.email?.trim();
@@ -29,6 +71,17 @@ export async function POST(request: Request) {
     const technology =
       body.technology?.trim() || null;
     const message = body.message?.trim();
+
+    if (
+      !withinLimit(name, 120) ||
+      !withinLimit(email, 254) ||
+      !withinLimit(phone, 40) ||
+      !withinLimit(organization, 160) ||
+      !withinLimit(designation, 120) ||
+      !withinLimit(message, 4000)
+    ) {
+      return NextResponse.json({ error: "One or more fields are too long." }, { status: 400 });
+    }
 
     if (!name) {
       return NextResponse.json(
@@ -48,6 +101,10 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+    }
+
     if (!enquiryType) {
       return NextResponse.json(
         {
@@ -56,6 +113,14 @@ export async function POST(request: Request) {
         },
         { status: 400 }
       );
+    }
+
+    if (!enquiryTypes.has(enquiryType)) {
+      return NextResponse.json({ error: "Please select a valid enquiry type." }, { status: 400 });
+    }
+
+    if (technology && !technologies.has(technology)) {
+      return NextResponse.json({ error: "Please select a valid technology area." }, { status: 400 });
     }
 
     if (!message) {
@@ -69,7 +134,7 @@ export async function POST(request: Request) {
     }
 
     const { error } =
-      await supabase
+      await getSupabase()
         .from("contact_submissions")
         .insert({
           name,

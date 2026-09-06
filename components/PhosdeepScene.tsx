@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Sparkles, Float } from "@react-three/drei";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 
@@ -427,15 +427,11 @@ function InteractiveField({
     );
 
 
-  const velocities =
-    useMemo(
-      () =>
-        basePositions.map(
-          () =>
-            new THREE.Vector3()
-        ),
-      [basePositions]
-    );
+  const velocitiesRef = useRef(
+    basePositions.map(
+      () => new THREE.Vector3()
+    )
+  );
 
 
   useEffect(() => {
@@ -533,7 +529,7 @@ function InteractiveField({
         basePositions[i];
 
       const velocity =
-        velocities[i];
+        velocitiesRef.current[i];
 
       const px =
         posAttr.getX(i);
@@ -624,6 +620,7 @@ function InteractiveField({
 
         <bufferAttribute
           attach="attributes-position"
+          args={[positionArray, 3]}
           count={
             basePositions.length
           }
@@ -961,22 +958,6 @@ function Scene() {
 ========================================================= */
 
 export default function PhosdeepScene() {
-  const [
-    ready,
-    setReady,
-  ] = useState(false);
-
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
-
-
-  if (!ready) {
-    return null;
-  }
-
-
   return (
     <Canvas
       camera={{

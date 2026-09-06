@@ -39,7 +39,9 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    setEnabled(fine);
+    const enableFrame = requestAnimationFrame(() => {
+      setEnabled(fine);
+    });
     if (!fine) return;
 
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -102,6 +104,7 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener("mouseleave", handleDocLeave);
       document.documentElement.removeEventListener("mouseenter", handleDocEnter);
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(enableFrame);
     };
   }, []);
 

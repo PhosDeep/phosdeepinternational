@@ -289,7 +289,7 @@ export default function Home() {
 
 
   return (
-    <main className="site">
+    <main className="site" id="main-content">
 
 
       {/* =====================================================
@@ -460,6 +460,7 @@ export default function Home() {
         >
 
           <div className="section-number">
+            01 / 06
           </div>
 
 

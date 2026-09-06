@@ -165,8 +165,26 @@ export default function AboutPage() {
     };
   }, []);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main className="site about-v2">
+    <main className="site about-v2" id="main-content">
 
       {/* =====================================================
           GLOBAL 3D SCENE
@@ -280,7 +298,7 @@ export default function AboutPage() {
           HERO
       ===================================================== */}
 
-      <section className="about-v2-hero">
+      <section className="about-v2-hero" data-reveal>
 
         <div className="about-v2-grid" />
 
@@ -396,7 +414,7 @@ export default function AboutPage() {
           INTRODUCTION
       ===================================================== */}
 
-      <section className="about-v2-intro">
+      <section className="about-v2-intro" data-reveal>
 
         <div className="about-v2-section-meta">
 
@@ -462,7 +480,7 @@ export default function AboutPage() {
           WHAT WE DO
       ===================================================== */}
 
-      <section className="about-v2-capabilities">
+      <section className="about-v2-capabilities" data-reveal>
 
         <div className="about-v2-section-heading">
 
@@ -489,7 +507,7 @@ export default function AboutPage() {
           </div>
 
           <p>
-            We don't separate technology,
+            We don&apos;t separate technology,
             education and innovation.
             We connect them.
           </p>
@@ -603,7 +621,7 @@ export default function AboutPage() {
           TECHNOLOGY FRONTIER
       ===================================================== */}
 
-      <section className="about-v2-tech">
+      <section className="about-v2-tech" data-reveal>
 
         <div className="about-v2-tech-header">
 
@@ -692,7 +710,7 @@ export default function AboutPage() {
           MISSION
       ===================================================== */}
 
-      <section className="about-v2-mission">
+      <section className="about-v2-mission" data-reveal>
 
         <div className="mission-grid" />
 
@@ -758,7 +776,7 @@ export default function AboutPage() {
           PHILOSOPHY
       ===================================================== */}
 
-      <section className="about-v2-philosophy">
+      <section className="about-v2-philosophy" data-reveal>
 
         <div className="about-v2-section-meta">
 
@@ -786,7 +804,7 @@ export default function AboutPage() {
 
           <p>
             Technology changes.
-            Curiosity doesn't.
+            Curiosity doesn&apos;t.
           </p>
 
         </div>
@@ -831,7 +849,7 @@ export default function AboutPage() {
           WHO WE WORK WITH
       ===================================================== */}
 
-      <section className="about-v2-audience">
+      <section className="about-v2-audience" data-reveal>
 
         <div className="audience-left">
 
@@ -897,7 +915,7 @@ export default function AboutPage() {
           FINAL CTA
       ===================================================== */}
 
-      <section className="about-v2-final">
+      <section className="about-v2-final" data-reveal>
 
         <div className="final-radial" />
 
@@ -1229,9 +1247,9 @@ export default function AboutPage() {
 
           font-size:
             clamp(
-              82px,
-              12vw,
-              185px
+              72px,
+              9.5vw,
+              145px
             );
 
           font-weight: 600;

@@ -1828,6 +1828,135 @@ footer {
 }
 
 /* =========================================================
+   FINAL RESPONSIVE EXPERIENCE OVERRIDES
+   These rules intentionally live at the end of the stylesheet
+   so page-specific legacy rules cannot reopen the desktop menu.
+========================================================= */
+
+@media (max-width: 900px) {
+  .inner-page-nav .nav-menu-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .inner-page-nav .nav-links,
+  .contact-page .inner-page-nav .nav-links {
+    position: absolute !important;
+    top: 70px !important;
+    left: 20px !important;
+    right: 20px !important;
+    display: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    transform: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(5, 3, 12, 0.98);
+    backdrop-filter: blur(22px);
+  }
+
+  .inner-page-nav.menu-open .nav-links,
+  .contact-page .inner-page-nav.menu-open .nav-links {
+    display: flex !important;
+  }
+
+  .inner-page-nav .nav-links a,
+  .contact-page .inner-page-nav .nav-links a {
+    width: 100%;
+    padding: 16px !important;
+    font-size: 10px !important;
+  }
+
+  .inner-page-nav .nav-contact,
+  .contact-page .inner-page-nav .nav-contact {
+    display: none !important;
+  }
+
+  .inner-page-nav.menu-open .nav-contact,
+  .contact-page .inner-page-nav.menu-open .nav-contact {
+    position: absolute !important;
+    top: 232px !important;
+    left: 20px !important;
+    right: 20px !important;
+    display: flex !important;
+    justify-content: space-between;
+    padding: 16px 24px !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 0;
+    background: rgba(5, 3, 12, 0.98);
+  }
+
+  .contact-page .site-nav,
+  .contact-page .inner-page-nav {
+    height: 70px !important;
+    padding: 0 5vw !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .inner-page-nav .nav-contact,
+  .contact-page .inner-page-nav .nav-contact {
+    font-size: 9px !important;
+  }
+
+  .hero {
+    min-height: 720px;
+    height: auto;
+    padding-top: 132px;
+    padding-bottom: 110px;
+  }
+
+  .hero-content {
+    width: min(100%, 520px);
+  }
+
+  .hero-3d {
+    top: 62%;
+    width: 125vw;
+    opacity: 0.38;
+  }
+
+  .hero-3d .scene-label,
+  .hero-3d .scene-data {
+    display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 30px;
+  }
+
+  .contact-hero-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-page .contact-form-section {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page .selection-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-3d,
+  .scene-fixed,
+  .page-background-grid {
+    animation: none !important;
+  }
+
+  .hero-button:hover,
+  .tech-card:hover,
+  .inner-page-nav .nav-contact:hover span {
+    transform: none !important;
+  }
+}
+
+/* =========================================================
    HUD FRAME
    Fixed corner brackets + small system readouts, styled like
    a targeting overlay — echoes the cursor reticle and gives
@@ -3187,6 +3316,178 @@ footer .logo {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY AND RESPONSIVE NAVIGATION
+========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1100;
+  padding: 10px 14px;
+  background: #090612;
+  color: white;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.nav-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.nav-menu-toggle span {
+  width: 17px;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.menu-open .nav-menu-toggle span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.menu-open .nav-menu-toggle span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+.form-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.form-submit a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-back {
+  color: var(--cyan);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.legal-content {
+  width: min(760px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 140px 0 120px;
+}
+
+.legal-content h1 {
+  margin: 28px 0 20px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(56px, 9vw, 110px);
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+}
+
+.legal-content h1 span {
+  color: var(--cyan);
+}
+
+.legal-updated,
+.legal-content p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.legal-content h2 {
+  margin: 54px 0 12px;
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 22px;
+}
+
+.legal-content a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 650px) {
+  .inner-page-nav {
+    padding: 0 20px !important;
+  }
+
+  .inner-page-nav .nav-menu-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .inner-page-nav .nav-links {
+    position: absolute !important;
+    top: 70px;
+    left: 20px;
+    right: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(5, 3, 12, 0.96);
+    backdrop-filter: blur(20px);
+  }
+
+  .inner-page-nav.menu-open .nav-links {
+    display: flex;
+  }
+
+  .inner-page-nav .nav-links a {
+    padding: 16px;
+  }
+
+  .inner-page-nav .nav-contact {
+    display: none;
+  }
+
+  .inner-page-nav.menu-open .nav-contact {
+    position: absolute;
+    top: calc(70px + 166px);
+    left: 28px;
+    right: 28px;
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(5, 3, 12, 0.96);
   }
 }
 

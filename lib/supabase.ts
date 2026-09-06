@@ -1,24 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL;
+export function getSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabasePublishableKey =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-const supabasePublishableKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  if (!supabaseUrl || !supabasePublishableKey) {
+    throw new Error("Supabase contact storage is not configured.");
+  }
 
-if (!supabaseUrl) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_SUPABASE_URL"
-  );
+  return createClient(supabaseUrl, supabasePublishableKey);
 }
-
-if (!supabasePublishableKey) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
-  );
-}
-
-export const supabase = createClient(
-  supabaseUrl,
-  supabasePublishableKey
-);

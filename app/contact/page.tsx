@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -45,6 +45,7 @@ export default function ContactPage() {
     enquiryType: "",
     technology: "",
     message: "",
+    website: "",
   });
 
   const [status, setStatus] = useState<
@@ -52,6 +53,24 @@ export default function ContactPage() {
   >("idle");
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
 
   function updateField(
     field: keyof typeof form,
@@ -100,6 +119,7 @@ export default function ContactPage() {
         enquiryType: "",
         technology: "",
         message: "",
+        website: "",
       });
     } catch (error) {
       setStatus("error");
@@ -113,7 +133,7 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="site contact-page">
+    <main className="site contact-page" id="main-content">
 
       {/* =====================================================
           3D BACKGROUND
@@ -142,7 +162,7 @@ export default function ContactPage() {
           HERO
       ===================================================== */}
 
-      <section className="contact-hero">
+      <section className="contact-hero" data-reveal>
 
         <div className="contact-hero-meta">
 
@@ -199,7 +219,7 @@ export default function ContactPage() {
           CONTACT FORM
       ===================================================== */}
 
-      <section className="contact-form-section">
+      <section className="contact-form-section" data-reveal>
 
         <div className="contact-form-intro">
 
@@ -227,7 +247,7 @@ export default function ContactPage() {
 
         {status === "success" ? (
 
-          <div className="contact-success">
+          <div className="contact-success" role="status" aria-live="polite">
 
             <div className="contact-success-symbol">
               ✓
@@ -267,6 +287,18 @@ export default function ContactPage() {
             onSubmit={handleSubmit}
           >
 
+            <label className="form-trap" aria-hidden="true">
+              Website
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={(event) => updateField("website", event.target.value)}
+              />
+            </label>
+
             {/* =================================================
                 PERSONAL INFORMATION
             ================================================= */}
@@ -301,6 +333,7 @@ export default function ContactPage() {
                         event.target.value
                       )
                     }
+                    autoComplete="name"
                     placeholder="Your full name"
                     required
                   />
@@ -324,6 +357,7 @@ export default function ContactPage() {
                         event.target.value
                       )
                     }
+                    autoComplete="email"
                     placeholder="you@company.com"
                     required
                   />
@@ -347,6 +381,7 @@ export default function ContactPage() {
                         event.target.value
                       )
                     }
+                    autoComplete="tel"
                     placeholder="+91"
                   />
 
@@ -369,6 +404,7 @@ export default function ContactPage() {
                         event.target.value
                       )
                     }
+                    autoComplete="organization"
                     placeholder="Company / Institution"
                   />
 
@@ -391,6 +427,7 @@ export default function ContactPage() {
                         event.target.value
                       )
                     }
+                    autoComplete="organization-title"
                     placeholder="Your role"
                   />
 
@@ -429,6 +466,7 @@ export default function ContactPage() {
                         ? "selected"
                         : ""
                     }`}
+                    aria-pressed={form.enquiryType === type}
                     onClick={() =>
                       updateField(
                         "enquiryType",
@@ -483,6 +521,7 @@ export default function ContactPage() {
                           ? "selected"
                           : ""
                       }
+                      aria-pressed={form.technology === technology}
                       onClick={() =>
                         updateField(
                           "technology",
@@ -550,7 +589,7 @@ export default function ContactPage() {
 
             {status === "error" && (
 
-              <div className="contact-error">
+              <div className="contact-error" role="alert" aria-live="assertive">
                 {errorMessage}
               </div>
 
@@ -567,7 +606,8 @@ export default function ContactPage() {
                 By submitting this form, you agree
                 that Phosdeep International may use
                 the information provided to contact
-                you regarding your enquiry.
+                you regarding your enquiry. See our{" "}
+                <Link href="/privacy">privacy policy</Link>.
               </p>
 
               <button
@@ -604,7 +644,7 @@ export default function ContactPage() {
           DIRECT CONTACT
       ===================================================== */}
 
-      <section className="direct-contact">
+      <section className="direct-contact" data-reveal>
 
         <div
           className="direct-contact-grid"
@@ -642,41 +682,6 @@ export default function ContactPage() {
           >
             +91 72899 00349
           </a>
-
-
-          {/* SOCIAL LINKS */}
-
-          <div className="direct-socials">
-
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="link"
-              data-cursor-label="LINKEDIN"
-              data-cursor-color="#557cff"
-            >
-              LINKEDIN
-              <span>
-                ↗
-              </span>
-            </a>
-
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="link"
-              data-cursor-label="INSTAGRAM"
-              data-cursor-color="#a83cff"
-            >
-              INSTAGRAM
-              <span>
-                ↗
-              </span>
-            </a>
-
-          </div>
 
 
           {/* COMPANY INFORMATION */}

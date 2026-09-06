@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function SiteNav() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome = pathname === "/";
   const isTraining = pathname === "/training";
@@ -14,8 +16,38 @@ export default function SiteNav() {
     pathname.startsWith("/technology/");
   const isContact = pathname === "/contact";
 
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMenuOpen(false));
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".inner-page-nav")) setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+    };
+  }, [menuOpen]);
+
   return (
-    <nav className="nav site-nav inner-page-nav">
+    <nav className={`nav site-nav inner-page-nav ${menuOpen ? "menu-open" : ""}`}>
+
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
 
       {/* =====================================================
           LOGO
@@ -42,7 +74,7 @@ export default function SiteNav() {
           HOME / TRAINING / ABOUT
       ===================================================== */}
 
-      <div className="nav-links">
+      <div className="nav-links" id="site-navigation-menu">
 
         {isHome ? (
           /* =================================================
@@ -107,6 +139,18 @@ export default function SiteNav() {
         </Link>
 
       </div>
+
+      <button
+        type="button"
+        className="nav-menu-toggle"
+        aria-expanded={menuOpen}
+        aria-controls="site-navigation-menu"
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span />
+        <span />
+      </button>
 
 
       {/* =====================================================
