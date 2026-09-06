@@ -281,7 +281,7 @@ export default function TrainingPage() {
 
 
   return (
-    <main className="site training-page">
+    <main className="site training-page" id="main-content">
 
       {/* =====================================================
           3D BACKGROUND

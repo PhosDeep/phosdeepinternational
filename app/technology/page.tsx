@@ -169,7 +169,7 @@ export default function TechnologyPage() {
   }, []);
 
   return (
-    <main className="site technology-page">
+    <main className="site technology-page" id="main-content">
 
       {/* =====================================================
           3D BACKGROUND
@@ -321,7 +321,7 @@ export default function TechnologyPage() {
         <h2>
           TECHNOLOGY
           <br />
-          ISN'T THE
+          ISN&apos;T THE
           <br />
           <span>DESTINATION.</span>
         </h2>
@@ -438,9 +438,9 @@ export default function TechnologyPage() {
         </span>
 
         <h2 data-reveal>
-          LET'S BUILD
+          LET&apos;S BUILD
           <br />
-          <span>WHAT'S NEXT.</span>
+          <span>WHAT&apos;S NEXT.</span>
         </h2>
 
         <a

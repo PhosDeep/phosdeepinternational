@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import PageShell from "@/components/PageShell";
 
@@ -116,6 +117,24 @@ const technologyData = {
 
 type TechnologySlug = keyof typeof technologyData;
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const technology = technologyData[slug as TechnologySlug];
+
+  if (!technology) {
+    return { title: "Technology | Phosdeep International" };
+  }
+
+  return {
+    title: `${technology.title} | Phosdeep International`,
+    description: technology.intro,
+  };
+}
+
 
 /* =========================================================
    VISUAL SELECTOR
@@ -193,7 +212,7 @@ export default async function TechnologyDetailPage({
           HERO
       ===================================================== */}
 
-      <section className="detail-hero">
+      <section className="detail-hero" data-reveal>
 
         {/* -----------------------------------------------------
             BACKGROUND VISUAL
@@ -294,7 +313,7 @@ export default async function TechnologyDetailPage({
           CAPABILITIES
       ===================================================== */}
 
-      <section className="capabilities-section">
+      <section className="capabilities-section" data-reveal>
 
         <div className="capabilities-heading">
 
@@ -358,7 +377,7 @@ export default async function TechnologyDetailPage({
           CTA
       ===================================================== */}
 
-      <section className="detail-cta">
+      <section className="detail-cta" data-reveal>
 
         <span>
           PHOSDEEP INTERNATIONAL
