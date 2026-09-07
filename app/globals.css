@@ -88,13 +88,6 @@ a {
    `.cursor-spin` child instead, whose transform JS never touches.
 ========================================================= */
 
-@media (hover: hover) and (pointer: fine) {
-
-  * {
-    cursor: none;
-  }
-}
-
 .custom-cursor-dot {
   position: fixed;
 
