@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 export const metadata = {
   title: "Privacy Policy | Phosdeep International",
@@ -8,10 +9,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <main className="site inner-site legal-page" id="main-content">
-      <header className="legal-header">
-        <Link href="/" className="logo">PHOS<span>DEEP</span></Link>
-        <Link href="/contact" className="legal-back">CONTACT ↗</Link>
-      </header>
+      <SiteNav />
       <article className="legal-content">
         <span className="eyebrow">PHOSDEEP / PRIVACY</span>
         <h1>PRIVACY<br /><span>POLICY.</span></h1>

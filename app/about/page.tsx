@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
+import SiteNav from "@/components/SiteNav";
 
 const PhosdeepScene = dynamic(
   () => import("@/components/PhosdeepScene"),
@@ -231,67 +232,7 @@ export default function AboutPage() {
           NAVIGATION
       ===================================================== */}
 
-      <nav className="nav nav-scrolled site-nav about-v2-nav">
-
-        <Link
-          href="/"
-          className="logo"
-          data-cursor="link"
-          data-cursor-label="HOME"
-          data-cursor-color="#38d9ff"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-        <div className="nav-links">
-
-          <Link
-            href="/technology"
-            data-cursor="link"
-            data-cursor-label="EXPLORE"
-            data-cursor-color="#a83cff"
-          >
-            Technology
-          </Link>
-
-          <Link
-            href="/training"
-            data-cursor="link"
-            data-cursor-label="EXPLORE"
-            data-cursor-color="#557cff"
-          >
-            Training
-          </Link>
-
-          <Link
-            href="/about"
-            className="active"
-            aria-current="page"
-            data-cursor="link"
-            data-cursor-label="CURRENT"
-            data-cursor-color="#2bd9ff"
-          >
-            About
-          </Link>
-
-        </div>
-
-        <Link
-          href="/contact"
-          className="nav-contact"
-          data-cursor="magnetic"
-          data-cursor-label="TALK"
-          data-cursor-color="#a83cff"
-          onMouseMove={(e) =>
-            magneticMove(e, 0.25)
-          }
-          onMouseLeave={magneticReset}
-        >
-          LET&apos;S TALK
-          <span>↗</span>
-        </Link>
-
-      </nav>
+      <SiteNav />
 
 
       {/* =====================================================
