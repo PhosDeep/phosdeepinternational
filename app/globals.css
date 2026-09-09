@@ -2849,6 +2849,130 @@ footer .logo {
   font-size: 15px;
 }
 
+.site-footer {
+  position: relative;
+  z-index: 20;
+  min-height: 190px;
+  padding: 42px clamp(24px, 7vw, 110px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 3, 12, 0.96);
+  color: rgba(255, 255, 255, 0.46);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.site-footer-brand,
+.site-footer-group,
+.site-footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.site-footer-brand .logo {
+  color: #fff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.site-footer-brand .logo span {
+  color: var(--purple);
+}
+
+.site-footer-group a,
+.site-footer-group > span:not(:first-child) {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.site-footer-group > span:first-child {
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.32);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.site-footer-group a:hover {
+  color: var(--cyan);
+}
+
+.site-footer-meta {
+  align-items: flex-end;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 8px;
+}
+
+/* =========================================================
+   READABLE CONTENT SCALE
+========================================================= */
+
+.technology-page .inner-hero-content {
+  max-width: 1240px;
+}
+
+.technology-page .inner-hero-content p,
+.technology-page .section-description,
+.technology-page .directory-card-content p,
+.technology-page .technology-capability p,
+.tech-content p,
+.training-text p,
+.detail-title p,
+.contact-hero-content p,
+.direct-contact-content p {
+  max-width: 720px;
+  color: rgba(245, 243, 250, 0.72) !important;
+  font-size: 16px !important;
+  line-height: 1.75 !important;
+  text-align: left;
+}
+
+.technology-page .inner-hero-content p {
+  margin-top: 42px;
+}
+
+.technology-page .directory-card-content p,
+.tech-content p {
+  max-width: 360px;
+  margin-top: 18px;
+}
+
+.technology-page .directory-card-content h2,
+.tech-content h3,
+.technology-page .technology-capability h3 {
+  line-height: 1 !important;
+}
+
+.training-text p,
+.detail-title p,
+.contact-hero-content p,
+.direct-contact-content p {
+  max-width: 680px;
+}
+
+.legal-page .legal-content p:not(.legal-updated),
+.section-description,
+.training-text > p,
+.detail-title > p,
+.contact-hero-content > p,
+.direct-contact-content > p {
+  color: rgba(245, 243, 250, 0.62) !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+}
+
+.site > footer {
+  min-height: 190px;
+  padding: 48px clamp(24px, 7vw, 110px);
+  background: rgba(5, 3, 12, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 
 /* =========================================================
    SCROLLBAR
@@ -5188,25 +5312,25 @@ footer .logo {
 
   margin-top: 22px;
 
-  font-size: 12px;
+  font-size: 16px;
 
   line-height: 1.75;
 
   color:
-    rgba(255,255,255,0.38);
+    rgba(245,243,250,0.68);
 }
 
 .training-program-topics {
   font-family: monospace;
 
-  font-size: 7px;
+  font-size: 10px;
 
   line-height: 1.8;
 
   letter-spacing: 0.13em;
 
   color:
-    rgba(255,255,255,0.24);
+    rgba(245,243,250,0.46);
 }
 
 .training-program-line {
@@ -7485,15 +7609,15 @@ footer .logo {
 .directory-heading p {
   max-width: 600px;
 
-  margin-top: 45px;
+  margin-top: 24px;
 
-  margin-left: auto;
+  margin-left: 0;
 
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.8;
 
   color:
-    rgba(255, 255, 255, 0.38);
+    rgba(245, 243, 250, 0.72);
 }
 
 /* =========================================================
@@ -11573,6 +11697,348 @@ footer .logo {
     font-weight: 600 !important;
     letter-spacing: 0.01em !important;
   }
+}
+
+/* =========================================================
+   CONTACT PAGE — ALIGNED FORM AND FOOTER
+========================================================= */
+
+.contact-page .contact-form-section {
+  width: auto !important;
+  margin: 0 !important;
+  padding: clamp(80px, 9vw, 140px) clamp(22px, 8vw, 120px) !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 0.62fr) minmax(0, 1.38fr) !important;
+  gap: clamp(40px, 7vw, 110px) !important;
+  align-items: start !important;
+  background: rgba(8, 5, 18, 0.76) !important;
+}
+
+.contact-page .contact-hero {
+  min-height: 76vh !important;
+  padding-top: 190px !important;
+  background: rgba(5, 3, 12, 0.38);
+}
+
+.contact-page .contact-hero-content {
+  max-width: 620px !important;
+}
+
+.contact-page .contact-hero h1 {
+  font-size: clamp(82px, 12vw, 176px) !important;
+  line-height: 0.78 !important;
+}
+
+.contact-page .contact-hero-visual {
+  position: absolute;
+  right: 12vw;
+  top: 50%;
+  width: min(34vw, 470px);
+  aspect-ratio: 1;
+  transform: translateY(-42%);
+  opacity: 0.9;
+}
+
+.contact-page .contact-hero-orbit {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(43, 217, 255, 0.5);
+  border-radius: 50%;
+  transform: rotate(-24deg) scaleY(0.36);
+}
+
+.contact-page .contact-hero-orbit-two {
+  inset: 2%;
+  border-color: rgba(168, 60, 255, 0.45);
+  transform: rotate(62deg) scaleY(0.42);
+}
+
+.contact-page .contact-hero-core {
+  position: absolute;
+  inset: 26%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(87, 48, 165, 0.4), rgba(5, 3, 12, 0.2) 70%);
+  box-shadow: 0 0 80px rgba(91, 61, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+
+.contact-page .contact-hero-core strong {
+  color: #fff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(46px, 6vw, 86px);
+  line-height: 0.8;
+}
+
+.contact-page .contact-hero-core small {
+  color: #2bd9ff;
+  font-size: 7px;
+}
+
+.contact-page .contact-hero-signal {
+  position: absolute;
+  right: 2%;
+  bottom: 12%;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(5, 3, 12, 0.75);
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.contact-page .contact-hero-signal b {
+  color: #a83cff;
+  margin: 0 8px;
+}
+
+.contact-page .contact-form-intro h2 {
+  text-transform: uppercase;
+}
+
+.contact-page .contact-form-intro {
+  position: sticky !important;
+  top: 130px !important;
+}
+
+.contact-page .contact-form-intro h2 {
+  font-size: clamp(52px, 5.8vw, 88px) !important;
+  line-height: 0.86 !important;
+}
+
+.contact-page .contact-form {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(28px, 4vw, 58px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.045) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.contact-page .form-section {
+  margin-bottom: 54px !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+}
+
+.contact-page .form-section-label {
+  margin-bottom: 26px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.contact-page .form-field {
+  gap: 9px !important;
+}
+
+.contact-page .form-field > span {
+  color: rgba(255, 255, 255, 0.58) !important;
+  font-size: 9px !important;
+}
+
+.contact-page .form-field input,
+.contact-page .message-field textarea {
+  min-height: 52px;
+  padding: 14px 15px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 2px !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+.contact-page .form-field input:focus,
+.contact-page .message-field textarea:focus {
+  border-color: rgba(168, 60, 255, 0.9) !important;
+  background: rgba(168, 60, 255, 0.08) !important;
+}
+
+.contact-page .selection-grid {
+  gap: 12px !important;
+}
+
+.contact-page .selection-card,
+.contact-page .technology-selection button {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  color: rgba(255, 255, 255, 0.68) !important;
+}
+
+.contact-page .selection-card.selected,
+.contact-page .technology-selection button.selected {
+  border-color: #a83cff !important;
+  background: rgba(168, 60, 255, 0.13) !important;
+  color: #fff !important;
+}
+
+.contact-page .form-submit {
+  align-items: center !important;
+  padding-top: 0 !important;
+}
+
+.contact-page .form-submit p {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.contact-page .contact-submit {
+  padding: 14px 20px !important;
+  border: 1px solid rgba(168, 60, 255, 0.65) !important;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #8e3cff, #2b9dff) !important;
+  color: #fff !important;
+}
+
+.contact-page > footer {
+  position: relative;
+  z-index: 3;
+  min-height: 220px;
+  padding: 36px clamp(22px, 8vw, 120px) !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(5, 3, 12, 0.92) !important;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.contact-page .contact-footer-brand,
+.contact-page .contact-footer-links,
+.contact-page .contact-footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-page .contact-footer-brand p {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.contact-page .contact-footer-links > span:first-child {
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.contact-page .contact-footer-links a {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+}
+
+.contact-page .contact-footer-links a:hover {
+  color: #2bd9ff;
+}
+
+.contact-page .contact-footer-meta {
+  align-items: flex-end;
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 8px;
+}
+
+.contact-page > footer .logo {
+  color: #fff !important;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.contact-page > footer .logo span {
+  color: #a83cff;
+}
+
+@media (max-width: 900px) {
+  .site > footer {
+    min-height: 150px;
+    padding: 36px 24px;
+  }
+
+  .contact-page .contact-hero-visual {
+    right: -8vw;
+    top: 28%;
+    width: 52vw;
+    opacity: 0.45;
+  }
+
+  .contact-page .contact-form-section {
+    grid-template-columns: 1fr !important;
+    gap: 56px !important;
+  }
+
+  .contact-page .contact-form-intro {
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 36px 24px;
+  }
+
+  .site-footer-meta {
+    align-items: flex-start;
+  }
+
+  .technology-page .inner-hero-content p,
+  .technology-page .section-description,
+  .technology-page .directory-card-content p,
+  .technology-page .technology-capability p,
+  .tech-content p,
+  .training-text p,
+  .detail-title p,
+  .contact-hero-content p,
+  .direct-contact-content p {
+    font-size: 15px !important;
+  }
+
+  .legal-page .legal-content p:not(.legal-updated),
+  .section-description,
+  .training-text > p,
+  .detail-title > p,
+  .contact-hero-content > p,
+  .direct-contact-content > p {
+    font-size: 14px !important;
+  }
+
+  .contact-page .contact-hero-visual {
+    top: 24%;
+    right: -18vw;
+    width: 65vw;
+  }
+
+  .contact-page .contact-form {
+    padding: 22px 18px !important;
+  }
+
+  .contact-page > footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .contact-page .contact-footer-meta {
+    align-items: flex-start;
+  }
+
 }
 
 

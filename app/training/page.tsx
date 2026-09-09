@@ -2,19 +2,12 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import DeferredScene from "@/components/DeferredScene";
+import SiteFooter from "@/components/SiteFooter";
 
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
 import SiteNav from "@/components/SiteNav";
-
-const PhosdeepScene = dynamic(
-  () => import("@/components/PhosdeepScene"),
-  {
-    ssr: false,
-  }
-);
-
 
 /* =========================================================
    TRAINING PROGRAMS
@@ -291,7 +284,7 @@ export default function TrainingPage() {
         className="scene-fixed"
         aria-hidden="true"
       >
-        <PhosdeepScene />
+        <DeferredScene />
       </div>
 
 
@@ -831,30 +824,7 @@ export default function TrainingPage() {
           FOOTER
       ===================================================== */}
 
-      <footer>
-
-        <Link
-          href="/"
-          className="logo"
-          data-cursor="link"
-          data-cursor-label="HOME"
-          data-cursor-color="#38d9ff"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-
-        <div>
-          © 2026 PHOSDEEP
-          INTERNATIONAL
-        </div>
-
-
-        <div>
-          DELHI · INDIA
-        </div>
-
-      </footer>
+      <SiteFooter />
 
     </main>
   );

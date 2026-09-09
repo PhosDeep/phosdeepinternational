@@ -2,18 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import DeferredScene from "@/components/DeferredScene";
+import SiteFooter from "@/components/SiteFooter";
 
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
 import SiteNav from "@/components/SiteNav";
-
-const PhosdeepScene = dynamic(
-  () => import("@/components/PhosdeepScene"),
-  {
-    ssr: false,
-  }
-);
 
 const technologies = [
   {
@@ -300,7 +294,7 @@ export default function Home() {
         className="scene-fixed"
         aria-hidden="true"
       >
-        <PhosdeepScene />
+        <DeferredScene />
       </div>
 
 
@@ -330,7 +324,6 @@ export default function Home() {
 
             <span className="status-dot" />
 
-            PHOSDEEP INTERNATIONAL
 
           </div>
 
@@ -396,10 +389,8 @@ export default function Home() {
         <div className="hero-3d">
 
           <div className="scene-label scene-label-top">
-            QUANTUM SYSTEM
 
             <span>
-              Q-01
             </span>
           </div>
 
@@ -407,11 +398,9 @@ export default function Home() {
           <div className="scene-data scene-data-left">
 
             <span>
-              QUBIT STATES
             </span>
 
             <strong>
-              010101
             </strong>
 
           </div>
@@ -460,17 +449,15 @@ export default function Home() {
         >
 
           <div className="section-number">
-            01 / 06
           </div>
 
 
           <div className="tech-live-tag">
 
             <span className="hud-blink">
-              ●
+              
             </span>
 
-            LIVE QUANTUM FIELD
 
           </div>
 
@@ -478,7 +465,6 @@ export default function Home() {
           <div className="section-heading">
 
             <span>
-              THE FRONTIER
             </span>
 
             <h2>
@@ -560,7 +546,6 @@ export default function Home() {
           className="statement-small"
           data-reveal
         >
-          THE PHOSDEEP MINDSET
         </div>
 
 
@@ -788,30 +773,7 @@ export default function Home() {
           FOOTER
       ===================================================== */}
 
-      <footer>
-
-        <Link
-          href="/"
-          className="logo"
-          data-cursor="link"
-          data-cursor-label="HOME"
-          data-cursor-color="#38d9ff"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-
-        <div>
-          © 2026 PHOSDEEP
-          INTERNATIONAL
-        </div>
-
-
-        <div>
-          DELHI · INDIA
-        </div>
-
-      </footer>
+      <SiteFooter />
 
     </main>
   );
