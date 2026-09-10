@@ -13058,3 +13058,306 @@ footer .logo {
   background: #a83cff !important;
   box-shadow: 0 0 10px #a83cff !important;
 }
+
+/* =========================================================
+   MULTILINGUAL GREETING PRELOADER INTRO (HELLO, NAMASTE, CIAO)
+========================================================= */
+
+.multilingual-preloader {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  background: #05030c !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.85s ease !important;
+  pointer-events: all !important;
+}
+
+.multilingual-preloader.is-sliding-out {
+  transform: translateY(-100%) !important;
+  opacity: 0.95 !important;
+  pointer-events: none !important;
+}
+
+.preloader-bg-mesh {
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  opacity: 0.6 !important;
+  pointer-events: none !important;
+}
+
+.preloader-glow-orb {
+  position: absolute !important;
+  width: 40vw !important;
+  height: 40vw !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, rgba(168, 60, 255, 0.15) 0%, rgba(43, 217, 255, 0.05) 50%, transparent 70%) !important;
+  filter: blur(80px) !important;
+  pointer-events: none !important;
+}
+
+.preloader-center-box {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.greeting-word-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  animation: preloader-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes preloader-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.greeting-dot {
+  font-size: clamp(24px, 4vw, 48px) !important;
+  color: #a83cff !important;
+  line-height: 1 !important;
+  text-shadow: 0 0 20px rgba(168, 60, 255, 0.8) !important;
+}
+
+.greeting-text {
+  font-family: var(--font-geist-sans), sans-serif !important;
+  font-size: clamp(32px, 6vw, 72px) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1 !important;
+}
+
+.preloader-bottom-tag {
+  position: absolute !important;
+  bottom: 40px !important;
+  z-index: 10 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 6px 18px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  font-family: var(--font-geist-mono), monospace !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* =========================================================
+   DOMAIN INTERACTIVE CONSOLE STYLES
+========================================================= */
+
+.detail-console-section {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.detail-console-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.detail-console-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-console-tag {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.detail-console-title {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.domain-console-wrapper {
+  background: rgba(10, 8, 22, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.domain-console-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.console-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.console-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.console-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.console-title {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.console-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-btn {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.control-btn.red { background: #ff5f56; }
+.control-btn.yellow { background: #ffbd2e; }
+.control-btn.green { background: #27c93f; }
+
+.console-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.console-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: #e0e0e0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.console-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.console-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.console-log-area {
+  background: rgba(5, 3, 12, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.console-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.console-ping {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.console-log-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.log-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.log-prompt {
+  font-weight: 800;
+  user-select: none;
+}
+
+.log-text {
+  color: rgba(255, 255, 255, 0.85);
+  word-break: break-word;
+}
