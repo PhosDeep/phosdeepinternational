@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
 import SiteNav from "@/components/SiteNav";
+import IntroQuoteOverlay from "@/components/IntroQuoteOverlay";
 
 const technologies = [
   {
@@ -109,116 +110,61 @@ function magneticReset(
 
 
 /* =====================================================
-   TECHNOLOGY CARD
+   6-ITEM INFOGRAPHIC TECHNOLOGY CARD
 ===================================================== */
 
-function TechCard({
+function InfographicCard({
   technology,
+  position,
 }: {
   technology: (typeof technologies)[number];
+  position:
+    | "left-top"
+    | "left-mid"
+    | "left-bot"
+    | "right-top"
+    | "right-mid"
+    | "right-bot";
 }) {
-  const cardRef =
-    useRef<HTMLAnchorElement>(null);
-
-  const handleMove = (
-    event: React.MouseEvent<HTMLElement>
-  ) => {
-    const el = cardRef.current;
-
-    if (!el) return;
-
-    const rect =
-      el.getBoundingClientRect();
-
-    const px =
-      (event.clientX - rect.left) /
-      rect.width;
-
-    const py =
-      (event.clientY - rect.top) /
-      rect.height;
-
-    const ry =
-      (px - 0.5) * 14;
-
-    const rx =
-      (0.5 - py) * 14;
-
-    el.style.setProperty(
-      "--rx",
-      `${rx}deg`
-    );
-
-    el.style.setProperty(
-      "--ry",
-      `${ry}deg`
-    );
-  };
-
-  const handleLeave = () => {
-    const el = cardRef.current;
-
-    if (!el) return;
-
-    el.style.setProperty(
-      "--rx",
-      "0deg"
-    );
-
-    el.style.setProperty(
-      "--ry",
-      "0deg"
-    );
-  };
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const isLeft = position.startsWith("left");
 
   return (
     <Link
       href={`/technology/${technology.slug}`}
-      className={`tech-card ${technology.color}`}
+      className={`infographic-card ${technology.color} ${position}`}
       data-reveal
       data-cursor="tech"
       data-cursor-color={technology.hex}
       data-cursor-symbol={technology.symbol}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
       ref={cardRef}
     >
+      <div className="info-card-inner">
+        {/* ICON ON LEFT FOR LEFT COLUMN CARDS */}
+        {isLeft && (
+          <div className="info-icon-box">
+            <span className="info-symbol">{technology.symbol}</span>
+          </div>
+        )}
 
-      <div className="tech-card-top">
-        <span>
-          {technology.number}
-        </span>
+        <div className="info-card-content">
+          <div className="info-card-meta">
+            <span className="info-num">{technology.number}</span>
+            <span className="info-sub">{technology.subtitle}</span>
+          </div>
+          <h3 className="info-title">{technology.title}</h3>
+          <p className="info-desc">{technology.description}</p>
+        </div>
 
-        <span className="tech-arrow">
-          ↗
-        </span>
+        {/* ICON ON RIGHT FOR RIGHT COLUMN CARDS */}
+        {!isLeft && (
+          <div className="info-icon-box">
+            <span className="info-symbol">{technology.symbol}</span>
+          </div>
+        )}
       </div>
 
-
-      <div className="tech-symbol">
-        {technology.symbol}
-      </div>
-
-
-      <div className="tech-content">
-
-        <span className="tech-subtitle">
-          {technology.subtitle}
-        </span>
-
-        <h3>
-          {technology.title}
-        </h3>
-
-        <p>
-          {technology.description}
-        </p>
-
-      </div>
-
-
-      <div className="tech-line" />
-
+      <div className="info-card-glow" />
     </Link>
   );
 }
@@ -284,7 +230,8 @@ export default function Home() {
 
   return (
     <main className="site" id="main-content">
-
+      {/* 5-SECOND FULL SCREEN INTRO QUOTE */}
+      <IntroQuoteOverlay />
 
       {/* =====================================================
           FIXED 3D BACKDROP
@@ -510,21 +457,43 @@ export default function Home() {
         </div>
 
 
-        <div className="technology-grid">
+        {/* =====================================================
+            6-ITEM SYMMETRICAL INFOGRAPHIC MATRIX SHOWCASE
+        ===================================================== */}
+        <div className="technology-infographic-container">
+          {/* LEFT COLUMN: 01, 02, 03 */}
+          <div className="infographic-col infographic-left-col">
+            <InfographicCard technology={technologies[0]} position="left-top" />
+            <InfographicCard technology={technologies[1]} position="left-mid" />
+            <InfographicCard technology={technologies[2]} position="left-bot" />
+          </div>
 
-          {technologies.map(
-            (technology) => (
-              <TechCard
-                technology={
-                  technology
-                }
-                key={
-                  technology.number
-                }
-              />
-            )
-          )}
+          {/* CENTER CORE HUB NODE */}
+          <div className="infographic-center-hub" data-reveal>
+            <div className="center-hub-card">
+              <div className="center-hub-badge">
+                <span className="hub-pulse-dot" />
+                <span>FRONTIER LABS</span>
+              </div>
 
+              <div className="center-hub-icon">✦</div>
+
+              <h2>06-ITEM</h2>
+              <span className="center-hub-sub">INFOGRAPHIC MATRIX</span>
+              <p>Engineering Next-Gen Systems Across 06 Technical Pillars</p>
+
+              <div className="center-hub-footer">
+                <span className="hub-status-text">● ALL SYSTEMS OPERATIONAL</span>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: 04, 05, 06 */}
+          <div className="infographic-col infographic-right-col">
+            <InfographicCard technology={technologies[3]} position="right-top" />
+            <InfographicCard technology={technologies[4]} position="right-mid" />
+            <InfographicCard technology={technologies[5]} position="right-bot" />
+          </div>
         </div>
 
       </section>
