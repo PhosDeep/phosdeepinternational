@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import PageShell from "@/components/PageShell";
 import SiteFooter from "@/components/SiteFooter";
+import DomainInteractiveConsole from "@/components/DomainInteractiveConsole";
 
 import CyberSecurityVisual from "../CyberSecurityVisual";
 import GenerativeAIVisual from "../GenerativeAIVisual";
@@ -302,6 +303,24 @@ export default async function TechnologyDetailPage({
 
         </div>
 
+      </section>
+
+
+      {/* =====================================================
+          INTERACTIVE DOMAIN TERMINAL / CONSOLE
+      ===================================================== */}
+      <section className="detail-console-section" data-reveal>
+        <div className="detail-console-container">
+          <div className="detail-console-header">
+            <span className="detail-console-tag" style={{ color: technology.color }}>
+              LIVE INTERACTIVE DOMAIN TERMINAL
+            </span>
+            <h2 className="detail-console-title">
+              OPERATIONAL TELEMETRY & SANDBOX
+            </h2>
+          </div>
+          <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
+        </div>
       </section>
 
 
