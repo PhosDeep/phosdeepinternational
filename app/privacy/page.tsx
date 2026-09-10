@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata = {
   title: "Privacy Policy | Phosdeep International",
@@ -25,6 +26,7 @@ export default function PrivacyPage() {
         <h2>Contact</h2>
         <p>Questions about this policy can be sent to <a href="mailto:phosdeepinternational@gmail.com">phosdeepinternational@gmail.com</a>.</p>
       </article>
+      <SiteFooter />
     </main>
   );
 }

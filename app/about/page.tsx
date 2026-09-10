@@ -1,19 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import DeferredScene from "@/components/DeferredScene";
+import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
 import SiteNav from "@/components/SiteNav";
-
-const PhosdeepScene = dynamic(
-  () => import("@/components/PhosdeepScene"),
-  {
-    ssr: false,
-  }
-);
 
 /* =========================================================
    DATA
@@ -195,7 +189,7 @@ export default function AboutPage() {
         className="about-v2-scene"
         aria-hidden="true"
       >
-        <PhosdeepScene />
+        <DeferredScene />
       </div>
 
       <div className="about-v2-noise" />
@@ -912,24 +906,7 @@ export default function AboutPage() {
           FOOTER
       ===================================================== */}
 
-      <footer className="about-v2-footer">
-
-        <Link
-          href="/"
-          className="logo"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-        <span>
-          © 2026 PHOSDEEP INTERNATIONAL
-        </span>
-
-        <span>
-          DELHI · INDIA
-        </span>
-
-      </footer>
+      <SiteFooter />
 
 
       {/* =====================================================

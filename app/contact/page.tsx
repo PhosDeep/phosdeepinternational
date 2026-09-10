@@ -2,18 +2,12 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import DeferredScene from "@/components/DeferredScene";
+import SiteFooter from "@/components/SiteFooter";
 
 import CustomCursor from "@/components/CustomCursor";
 import HudFrame from "@/components/HudFrame";
 import SiteNav from "@/components/SiteNav";
-
-const PhosdeepScene = dynamic(
-  () => import("@/components/PhosdeepScene"),
-  {
-    ssr: false,
-  }
-);
 
 const enquiryTypes = [
   "Technology / Consulting",
@@ -143,7 +137,7 @@ export default function ContactPage() {
         className="scene-fixed"
         aria-hidden="true"
       >
-        <PhosdeepScene />
+        <DeferredScene />
       </div>
 
       <CustomCursor />
@@ -182,14 +176,14 @@ export default function ContactPage() {
 
             <span className="status-dot" />
 
-            START A CONVERSATION
+            DIRECT ACCESS
 
           </div>
 
           <h1>
-            LET&apos;S
+            GET IN
             <br />
-            <span>BUILD.</span>
+            <span>TOUCH.</span>
           </h1>
 
           <p>
@@ -198,6 +192,17 @@ export default function ContactPage() {
             exploring? Tell us what you&apos;re working on.
           </p>
 
+        </div>
+
+        <div className="contact-hero-visual" aria-hidden="true">
+          <div className="contact-hero-orbit contact-hero-orbit-one" />
+          <div className="contact-hero-orbit contact-hero-orbit-two" />
+          <div className="contact-hero-core">
+            <span>PHOSDEEP</span>
+            <strong>01</strong>
+            <small>OPEN CHANNEL</small>
+          </div>
+          <div className="contact-hero-signal">INDIA <b>→</b> WORLD</div>
         </div>
 
         <div className="contact-hero-number">
@@ -228,14 +233,15 @@ export default function ContactPage() {
           </span>
 
           <h2>
-            TELL US
+            SEND US
             <br />
-            <span>ABOUT YOU.</span>
+            <span>YOUR INQUIRY.</span>
           </h2>
 
           <p>
-            A few details will help us understand who
-            we&apos;re speaking with and how we can help.
+            Have a technology challenge, training requirement,
+            research idea or project worth exploring? Tell us
+            what you&apos;re working on.
           </p>
 
         </div>
@@ -444,50 +450,7 @@ export default function ContactPage() {
 
             <div className="form-section">
 
-              <div className="form-section-label">
 
-                <span>
-                  02
-                </span>
-
-                WHAT ARE YOU LOOKING FOR?
-
-              </div>
-
-              <div className="selection-grid">
-
-                {enquiryTypes.map((type) => (
-
-                  <button
-                    type="button"
-                    key={type}
-                    className={`selection-card ${
-                      form.enquiryType === type
-                        ? "selected"
-                        : ""
-                    }`}
-                    aria-pressed={form.enquiryType === type}
-                    onClick={() =>
-                      updateField(
-                        "enquiryType",
-                        type
-                      )
-                    }
-                  >
-
-                    <span>
-                      {form.enquiryType === type
-                        ? "●"
-                        : "○"}
-                    </span>
-
-                    {type}
-
-                  </button>
-
-                ))}
-
-              </div>
 
             </div>
 
@@ -496,91 +459,13 @@ export default function ContactPage() {
                 TECHNOLOGY
             ================================================= */}
 
-            <div className="form-section">
 
-              <div className="form-section-label">
-
-                <span>
-                  03
-                </span>
-
-                TECHNOLOGY AREA
-
-              </div>
-
-              <div className="technology-selection">
-
-                {technologies.map(
-                  (technology) => (
-
-                    <button
-                      type="button"
-                      key={technology}
-                      className={
-                        form.technology === technology
-                          ? "selected"
-                          : ""
-                      }
-                      aria-pressed={form.technology === technology}
-                      onClick={() =>
-                        updateField(
-                          "technology",
-                          technology
-                        )
-                      }
-                    >
-
-                      {technology}
-
-                      <span>
-                        ↗
-                      </span>
-
-                    </button>
-
-                  )
-                )}
-
-              </div>
-
-            </div>
 
 
             {/* =================================================
                 MESSAGE
             ================================================= */}
 
-            <div className="form-section">
-
-              <div className="form-section-label">
-
-                <span>
-                  04
-                </span>
-
-                TELL US MORE
-
-              </div>
-
-              <label className="message-field">
-
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={(event) =>
-                    updateField(
-                      "message",
-                      event.target.value
-                    )
-                  }
-                  placeholder="Tell us about your requirement, challenge, project or idea..."
-                  required
-                  rows={7}
-                />
-
-              </label>
-
-            </div>
 
 
             {/* =================================================
@@ -703,24 +588,7 @@ export default function ContactPage() {
           FOOTER
       ===================================================== */}
 
-      <footer>
-
-        <Link
-          href="/"
-          className="logo"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-        <div>
-          © 2026 PHOSDEEP INTERNATIONAL
-        </div>
-
-        <div>
-          DELHI · INDIA
-        </div>
-
-      </footer>
+      <SiteFooter />
 
     </main>
   );

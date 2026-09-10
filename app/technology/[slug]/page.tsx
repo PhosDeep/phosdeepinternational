@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import PageShell from "@/components/PageShell";
+import SiteFooter from "@/components/SiteFooter";
 
 import CyberSecurityVisual from "../CyberSecurityVisual";
 import GenerativeAIVisual from "../GenerativeAIVisual";
@@ -117,6 +118,12 @@ const technologyData = {
 
 type TechnologySlug = keyof typeof technologyData;
 
+export function generateStaticParams() {
+  return Object.keys(technologyData).map((slug) => ({
+    slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -167,17 +174,6 @@ function TechnologyVisual({
     default:
       return null;
   }
-}
-
-
-/* =========================================================
-   STATIC PARAMS
-========================================================= */
-
-export function generateStaticParams() {
-  return Object.keys(technologyData).map((slug) => ({
-    slug,
-  }));
 }
 
 
@@ -425,30 +421,7 @@ export default async function TechnologyDetailPage({
           FOOTER
       ===================================================== */}
 
-      <footer>
-
-        <Link
-          href="/"
-          className="logo"
-          data-cursor="link"
-          data-cursor-label="HOME"
-          data-cursor-color="#38d9ff"
-        >
-          PHOS<span>DEEP</span>
-        </Link>
-
-
-        <div>
-          © 2026 PHOSDEEP
-          INTERNATIONAL
-        </div>
-
-
-        <div>
-          DELHI · INDIA
-        </div>
-
-      </footer>
+      <SiteFooter />
 
     </PageShell>
   );
