@@ -458,41 +458,55 @@ export default function Home() {
 
 
         {/* =====================================================
-            6-ITEM SYMMETRICAL INFOGRAPHIC MATRIX SHOWCASE
+            6-ITEM SYMMETRICAL INFOGRAPHIC MATRIX SHOWCASE (EXACT MATCH TO IMAGE 1)
         ===================================================== */}
         <div className="technology-infographic-container">
-          {/* LEFT COLUMN: 01, 02, 03 */}
-          <div className="infographic-col infographic-left-col">
-            <InfographicCard technology={technologies[0]} position="left-top" />
-            <InfographicCard technology={technologies[1]} position="left-mid" />
-            <InfographicCard technology={technologies[2]} position="left-bot" />
+          <div className="infographic-matrix-grid">
+            {technologies.map((tech) => (
+              <Link
+                key={tech.slug}
+                href={`/technology/${tech.slug}`}
+                className={`matrix-cell cell-${tech.color}`}
+                data-reveal
+                data-cursor="tech"
+                data-cursor-color={tech.hex}
+                data-cursor-symbol={tech.symbol}
+              >
+                {/* TOP CELL BAR: NUMBER & CORNER SYMBOL */}
+                <div className="cell-top-bar">
+                  <span className="cell-number" style={{ color: tech.hex }}>{tech.number}</span>
+                  <span className="cell-corner-symbol" style={{ color: tech.hex }}>{tech.symbol}</span>
+                </div>
+
+                {/* BOTTOM INNER DARK CARD INSET (EXACT MATCH TO REFERENCE IMAGE 1) */}
+                <div className="cell-inner-panel">
+                  <span className="cell-subtitle">{tech.subtitle}</span>
+                  <h3 className="cell-title">{tech.title}</h3>
+                  <p className="cell-description">{tech.description}</p>
+                  <div className="cell-accent-bar" style={{ background: tech.hex }} />
+                </div>
+
+                {/* CELL AMBIENT COLOR WASH BACKGROUND */}
+                <div className="cell-ambient-glow" />
+              </Link>
+            ))}
           </div>
 
-          {/* CENTER CORE HUB NODE */}
-          <div className="infographic-center-hub" data-reveal>
-            <div className="center-hub-card">
-              <div className="center-hub-badge">
-                <span className="hub-pulse-dot" />
-                <span>FRONTIER LABS</span>
-              </div>
-
-              <div className="center-hub-icon">✦</div>
-
-              <h2>06-ITEM</h2>
-              <span className="center-hub-sub">INFOGRAPHIC MATRIX</span>
-              <p>Engineering Next-Gen Systems Across 06 Technical Pillars</p>
-
-              <div className="center-hub-footer">
-                <span className="hub-status-text">● ALL SYSTEMS OPERATIONAL</span>
-              </div>
+          {/* 3D CENTRAL ORBITAL GLOBE VISUAL (MATCHES IMAGE 1) */}
+          <div className="infographic-central-3d-visual" aria-hidden="true">
+            <div className="orbital-ring ring-purple" />
+            <div className="orbital-ring ring-cyan" />
+            <div className="orbital-ring ring-blue" />
+            <div className="wireframe-globe">
+              <div className="globe-lat lat-1" />
+              <div className="globe-lat lat-2" />
+              <div className="globe-lat lat-3" />
+              <div className="globe-long long-1" />
+              <div className="globe-long long-2" />
+              <div className="globe-long long-3" />
             </div>
-          </div>
-
-          {/* RIGHT COLUMN: 04, 05, 06 */}
-          <div className="infographic-col infographic-right-col">
-            <InfographicCard technology={technologies[3]} position="right-top" />
-            <InfographicCard technology={technologies[4]} position="right-mid" />
-            <InfographicCard technology={technologies[5]} position="right-bot" />
+            <div className="glowing-intersection-node" />
+            <div className="core-radial-glow" />
           </div>
         </div>
 
