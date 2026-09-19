@@ -39,6 +39,8 @@ function DefenseMachine({ attack, breach }: { attack: Attack; breach: boolean })
 export default function CyberDefenseGame({ color }: { color: string }) {
   const arena = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
+  const advanceTimer = useRef<number | null>(null);
+  const hasAssignedBreach = useRef(false);
   const [selected, setSelected] = useState<AttackId>("spam");
   const [phase, setPhase] = useState<Phase>("ready");
   const [aim, setAim] = useState(0);
@@ -53,10 +55,11 @@ export default function CyberDefenseGame({ color }: { color: string }) {
   const breach = safeRuns + 1 >= breachIn;
   const canFire = phase === "ready" || phase === "aiming";
 
-  useEffect(() => () => timers.current.forEach(window.clearTimeout), []);
+  useEffect(() => () => { timers.current.forEach(window.clearTimeout); if (advanceTimer.current) window.clearTimeout(advanceTimer.current); }, []);
   function targetAim(x: number, y: number) { const element = arena.current; if (!element || !canFire) return; const rect = element.getBoundingClientRect(); setAim(clamp(Math.atan2(y - (rect.top + rect.height * .58), x - (rect.left + rect.width * .15)) * 180 / Math.PI, -17, 17)); setPhase("aiming"); }
-  function fire() { if (!canFire) return; timers.current.forEach(window.clearTimeout); setPhase("flight"); timers.current = [window.setTimeout(() => setPhase("defense"), 720), window.setTimeout(() => setPhase("resolved"), 1600)]; }
+  function fire() { if (!canFire) return; if (!hasAssignedBreach.current) { setBreachIn(Math.floor(Math.random() * 3) + 1); hasAssignedBreach.current = true; } timers.current.forEach(window.clearTimeout); setPhase("flight"); timers.current = [window.setTimeout(() => setPhase("defense"), 720), window.setTimeout(() => setPhase("resolved"), 1600)]; }
   function nextRound() { if (phase !== "resolved") return; if (breach) { setStreak(0); setSystemScore((value) => value + 100); setSafeRuns(0); setBreachIn(Math.floor(Math.random() * 3) + 1); } else { setStreak((value) => value + 1); setScore((value) => value + 100 + streak * 25); setSafeRuns((value) => value + 1); } if (round === 2) setUnlocked((value) => [...value, "mitm"]); setRound((value) => value + 1); setAim(0); setPhase("ready"); }
+  useEffect(() => { if (phase !== "resolved") return; advanceTimer.current = window.setTimeout(nextRound, breach ? 4600 : 3600); return () => { if (advanceTimer.current) window.clearTimeout(advanceTimer.current); }; }, [phase, breach, round, streak]);
 
   return <section className={styles.game} style={{ "--accent": color, "--attack": attack.color } as React.CSSProperties}>
     <header className={styles.header}><div><span>PHOSDEEP SECURITY LAB</span><h2>VECTOR <i>vs.</i> VECTOR</h2></div><p>Choose an attack vector. Draw the shot. See the defense system respond.</p><div className={styles.mission}><span>LIVE EXERCISE</span><strong>RND {String(round).padStart(2, "0")}</strong></div></header>
@@ -65,14 +68,14 @@ export default function CyberDefenseGame({ color }: { color: string }) {
     <div ref={arena} className={`${styles.arena} ${styles[`attack-${attack.id}`]} ${styles[`phase-${phase}`]} ${breach ? styles.breach : ""}`} onPointerMove={(event) => { if (event.buttons) targetAim(event.clientX, event.clientY); }}>
       <div className={styles.stars} /><div className={styles.horizon} /><div className={styles.arenaMeta}><span>ORIGIN / OFFENSE</span><span>TARGET / PROTECTED SYSTEM</span></div>
       <div className={styles.launcher}><div className={styles.launcherRing} /><div className={styles.launcherCore}><span>01</span></div><button type="button" aria-label="Drag to aim, then release to launch" className={styles.aimControl} style={{ transform: `rotate(${aim}deg)` }} onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); targetAim(event.clientX, event.clientY); }} onPointerMove={(event) => targetAim(event.clientX, event.clientY)} onPointerUp={(event) => { targetAim(event.clientX, event.clientY); fire(); }}><AttackArrow icon={attack.icon} /></button><strong>VECTOR LAUNCHER</strong><small>DRAG + RELEASE</small></div>
-      <div className={styles.targetSystem}><div className={styles.systemOrb}><span>SYS</span></div><div className={styles.systemShards}><i /><i /><i /><i /><i /></div><div className={styles.systemGrid} /><strong>CORE SYSTEM</strong><small>PROTECTED TARGET</small></div>
+      <div className={styles.targetSystem}><div className={styles.systemOrb}><span>SYS</span></div><div className={styles.systemExplosion}><i /><i /><i /></div><div className={styles.systemShards}><i /><i /><i /><i /><i /></div><div className={styles.systemGrid} /><strong>CORE SYSTEM</strong><small>PROTECTED TARGET</small></div>
       <DefenseMachine attack={attack} breach={breach} />
       <div className={styles.impact}><i /><i /><i /><span /></div>
       {phase === "defense" && <div className={styles.defenseText}>{breach ? "DEFENSE OVERLOADED" : `${attack.device} DEPLOYED`}</div>}
       {phase === "resolved" && <div className={`${styles.resultBurst} ${breach ? styles.resultFail : ""}`}><div className={styles.burstLines} /><strong>{breach ? "SYSTEM BREACHED" : "ATTACK NEUTRALIZED"}</strong><span>{breach ? "DEFENSE GAP DETECTED" : `+${100 + streak * 25} SECURITY POINTS`}</span></div>}
-      {phase === "resolved" && breach && <article className={styles.breachModal} aria-live="polite"><button type="button" className={styles.modalNext} onClick={nextRound}>HARDEN &amp; NEXT ROUND →</button><div className={styles.lessonTag}>INCIDENT REPORT // WHY THIS MATTERS</div><div className={styles.lessonContent}><div><h3>A defense gap changed the outcome.</h3><p>{attack.failure}</p></div><div className={styles.diagram}>{attack.diagram.map((label, index) => <span key={label} className={index === 1 ? styles.diagramCenter : ""}>{label}</span>)}</div></div><footer><span>PATCH THE GAP, THEN CONTINUE</span></footer></article>}
+      {phase === "resolved" && breach && <article className={styles.breachModal} aria-live="polite"><div className={styles.lessonTag}>INCIDENT REPORT // WHY THIS MATTERS</div><div className={styles.lessonContent}><div><h3>A defense gap changed the outcome.</h3><p>{attack.failure}</p></div><div className={styles.diagram}>{attack.diagram.map((label, index) => <span key={label} className={index === 1 ? styles.diagramCenter : ""}>{label}</span>)}</div></div><footer><span>HARDENING SYSTEM · NEXT ROUND LOADING</span></footer></article>}
     </div>
     <div className={styles.controls}><div><span>ACTIVE VECTOR</span><strong style={{ color: attack.color }}>{attack.name.toUpperCase()}</strong></div><p>{breach ? "This round simulates an under-defended system. Observe the consequence." : "Drag the launcher to aim your projectile, then release to fire."}</p><button type="button" disabled={!canFire} onClick={fire}>{phase === "aiming" ? "RELEASE SHOT" : "LAUNCH VECTOR ↗"}</button></div>
-    {phase === "resolved" && !breach && <article className={styles.lesson} aria-live="polite"><div className={styles.lessonTag}>KNOWLEDGE UNLOCKED // DEFENSE IN DEPTH</div><div className={styles.lessonContent}><div><h3>{attack.defense}</h3><p>{attack.lesson}</p></div><div className={styles.diagram}>{attack.diagram.map((label, index) => <span key={label} className={index === 1 ? styles.diagramCenter : ""}>{label}</span>)}</div></div><footer><span>CONCEPT SECURED</span><button type="button" onClick={nextRound}>SECURE &amp; NEXT ROUND →</button></footer></article>}
+    {phase === "resolved" && !breach && <article className={styles.lesson} aria-live="polite"><div className={styles.lessonTag}>KNOWLEDGE UNLOCKED // DEFENSE IN DEPTH</div><div className={styles.lessonContent}><div><h3>{attack.defense}</h3><p>{attack.lesson}</p></div><div className={styles.diagram}>{attack.diagram.map((label, index) => <span key={label} className={index === 1 ? styles.diagramCenter : ""}>{label}</span>)}</div></div><footer><span>CONCEPT SECURED · NEXT ROUND LOADING</span></footer></article>}
   </section>;
 }
