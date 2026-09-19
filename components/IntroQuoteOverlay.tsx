@@ -15,11 +15,18 @@ const GREETINGS = [
 ];
 
 export default function IntroQuoteOverlay() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.sessionStorage.getItem("phosdeep-intro-shown") !== "true";
+  });
   const [fadingOut, setFadingOut] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (!visible) return;
+
+    window.sessionStorage.setItem("phosdeep-intro-shown", "true");
+
     // Lock body scrolling while preloader is active
     document.body.style.overflow = "hidden";
 
@@ -31,7 +38,11 @@ export default function IntroQuoteOverlay() {
           return prev + 1;
         } else {
           clearInterval(interval);
-          dismissPreloader();
+          setFadingOut(true);
+          window.setTimeout(() => {
+            setVisible(false);
+            document.body.style.overflow = "";
+          }, 850);
           return prev;
         }
       });
@@ -41,15 +52,7 @@ export default function IntroQuoteOverlay() {
       clearInterval(interval);
       document.body.style.overflow = "";
     };
-  }, []);
-
-  const dismissPreloader = () => {
-    setFadingOut(true);
-    setTimeout(() => {
-      setVisible(false);
-      document.body.style.overflow = "";
-    }, 850);
-  };
+  }, [visible]);
 
   if (!visible) return null;
 
