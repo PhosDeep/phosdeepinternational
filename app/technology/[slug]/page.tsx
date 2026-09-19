@@ -319,14 +319,6 @@ export default async function TechnologyDetailPage({
       ) : (
         <section className="detail-console-section" data-reveal>
           <div className="detail-console-container">
-            <div className="detail-console-header">
-              <span className="detail-console-tag" style={{ color: technology.color }}>
-                LIVE INTERACTIVE DOMAIN TERMINAL
-              </span>
-              <h2 className="detail-console-title">
-                OPERATIONAL TELEMETRY & SANDBOX
-              </h2>
-            </div>
             <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
           </div>
         </section>

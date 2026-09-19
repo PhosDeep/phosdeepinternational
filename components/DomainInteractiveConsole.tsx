@@ -19,7 +19,6 @@ export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
       <div className="console-top-bar">
         <div className="console-status">
           <span className="console-dot" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
-          <span className="console-title">{slug.toUpperCase()} // INTERACTIVE DOMAIN GAME CONSOLE</span>
         </div>
 
         {/* TABS */}
