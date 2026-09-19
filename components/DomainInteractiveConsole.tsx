@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 type DomainProps = {
-  slug: "cybersecurity" | "generative-ai" | "quantum" | "cloud" | "blockchain" | "research";
+  /** Blockchain is handled by the BREAK THE CHAIN experience, not this console. */
+  slug: "cybersecurity" | "generative-ai" | "quantum" | "cloud" | "research";
   color: string;
 };
 
@@ -51,7 +52,6 @@ export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
       {slug === "generative-ai" && <GenerativeAiGame color={color} activeMode={activeConsoleMode} />}
       {slug === "quantum" && <QuantumGame color={color} activeMode={activeConsoleMode} />}
       {slug === "cloud" && <CloudGame color={color} activeMode={activeConsoleMode} />}
-      {slug === "blockchain" && <BlockchainGame color={color} activeMode={activeConsoleMode} />}
       {slug === "research" && <ResearchGame color={color} activeMode={activeConsoleMode} />}
     </div>
   );
@@ -687,130 +687,6 @@ function CloudGame({ color, activeMode }: { color: string; activeMode: "arcade" 
         </div>
       ) : (
         <ConsoleTerminalArea logs={logs} color="#2bd9ff" />
-      )}
-    </>
-  );
-}
-
-
-/* =========================================================
-   GAME 5: BLOCKCHAIN - BLOCK MINER & HASH CONSTRUCTOR
-========================================================= */
-function BlockchainGame({ color, activeMode }: { color: string; activeMode: "arcade" | "terminal" }) {
-  const [gasSaved, setGasSaved] = useState(0);
-  const [blocksMined, setBlocksMined] = useState(0);
-  const [vaultHp, setVaultHp] = useState(100);
-  const [logs, setLogs] = useState<string[]>([
-    "[SMART-CONTRACT] Cryptographic Block Mining Engine Active.",
-    "[GOAL] Click 'MINE BLOCK' when the Nonce target reaches valid 0x00... hash solution!",
-  ]);
-
-  const [nonceHash, setNonceHash] = useState("0x7F9A...4B2C");
-  const [isValidHash, setIsValidHash] = useState(false);
-
-  // Hash ticker animation
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const isWinner = Math.random() > 0.6;
-      setIsValidHash(isWinner);
-      if (isWinner) {
-        setNonceHash("0x0000...9F41 [VALID]");
-      } else {
-        const hex = Math.random().toString(16).substring(2, 10).toUpperCase();
-        setNonceHash(`0x${hex}...3A8E`);
-      }
-    }, 900);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  function mineBlock() {
-    if (isValidHash) {
-      setGasSaved((g) => g + 350);
-      setBlocksMined((b) => b + 1);
-      setVaultHp(100);
-      const time = new Date().toLocaleTimeString();
-      setLogs((prev) => [`[${time}] 🔗 BLOCK MINED! Cryptographic Nonce Hash Solved (+350 GAS SAVED)`, ...prev.slice(0, 3)]);
-    } else {
-      setVaultHp((h) => Math.max(0, h - 10));
-      const time = new Date().toLocaleTimeString();
-      setLogs((prev) => [`[${time}] ⚠️ INVALID NONCE HASH! Failed Block Proposal (-10% VAULT)`, ...prev.slice(0, 3)]);
-    }
-  }
-
-  function zkProofShield() {
-    setVaultHp(100);
-    setGasSaved((g) => g + 1000);
-    const time = new Date().toLocaleTimeString();
-    setLogs((prev) => [`[${time}] 🔒 ZERO-KNOWLEDGE PROOF SHIELD: Smart Contract Vault Sealed!`, ...prev.slice(0, 3)]);
-  }
-
-  return (
-    <>
-      <div className="arcade-hud-bar">
-        <div className="hud-stat-box"><span className="hud-label">GAS SAVED</span><strong style={{ color: "#ff8b37" }}>{gasSaved} GWEI</strong></div>
-        <div className="hud-stat-box"><span className="hud-label">BLOCKS MINED</span><strong style={{ color: "#37e69c" }}>{blocksMined} BLOCKS</strong></div>
-        <div className="hud-stat-box"><span className="hud-label">VAULT INTEGRITY</span><strong style={{ color: vaultHp > 40 ? "#37e69c" : "#ff405a" }}>{vaultHp}% SECURE</strong></div>
-      </div>
-
-      {activeMode === "arcade" ? (
-        <div className="particle-canvas-wrapper" style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
-          <div className="canvas-instruction-overlay" style={{ position: "relative", top: 0, left: 0, transform: "none" }}>
-            <span>🔗 CLICK 'MINE CRYPTOGRAPHIC BLOCK' WHEN NONCE DISPLAYS GREEN VALID 0x0000 HASH!</span>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "280px", gap: "20px", background: "rgba(30, 16, 6, 0.9)", borderRadius: "12px", border: "1px solid rgba(255, 139, 55, 0.3)" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "11px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.6)" }}>
-              MEMPOOL TARGET NONCE SOLUTION
-            </div>
-
-            <div
-              style={{
-                fontFamily: "monospace",
-                fontSize: "26px",
-                fontWeight: "bold",
-                color: isValidHash ? "#37e69c" : "#ff8b37",
-                textShadow: isValidHash ? "0 0 20px #37e69c" : "0 0 10px #ff8b37",
-                padding: "16px 30px",
-                background: "rgba(0,0,0,0.5)",
-                borderRadius: "10px",
-                border: `2px solid ${isValidHash ? "#37e69c" : "#ff8b37"}`,
-              }}
-            >
-              {nonceHash}
-            </div>
-
-            <button
-              type="button"
-              onClick={mineBlock}
-              style={{
-                padding: "14px 40px",
-                background: isValidHash ? "#37e69c" : "#ff8b37",
-                color: "#000000",
-                fontFamily: "monospace",
-                fontSize: "14px",
-                fontWeight: "bold",
-                borderRadius: "8px",
-                cursor: "pointer",
-                boxShadow: isValidHash ? "0 0 25px #37e69c" : "0 0 15px #ff8b37",
-                border: "none",
-              }}
-            >
-              🔨 MINE BLOCK TO CHAIN
-            </button>
-          </div>
-
-          <div className="canvas-ability-bar" style={{ position: "relative", inset: "auto" }}>
-            <button type="button" className="ability-btn emp-btn" onClick={zkProofShield} style={{ borderColor: "#ff8b37" }}>
-              🔒 ZERO-KNOWLEDGE PROOF SHIELD
-            </button>
-            <button type="button" className="ability-btn repair-btn" onClick={() => setVaultHp(100)}>
-              🔑 RE-KEY CONTRACT VAULT (100%)
-            </button>
-          </div>
-        </div>
-      ) : (
-        <ConsoleTerminalArea logs={logs} color="#ff8b37" />
       )}
     </>
   );

@@ -12,6 +12,7 @@ import QuantumVisual from "../QuantumVisual";
 import CloudVisual from "../CloudVisual";
 import BlockchainVisual from "../BlockchainVisual";
 import ResearchVisual from "../ResearchVisual";
+import BreakTheChain from "../BreakTheChain";
 
 const technologyData = {
   cybersecurity: {
@@ -307,21 +308,29 @@ export default async function TechnologyDetailPage({
 
 
       {/* =====================================================
-          INTERACTIVE DOMAIN TERMINAL / CONSOLE
+          INTERACTIVE DOMAIN SECTION
+
+          Blockchain runs BREAK THE CHAIN — a self-contained
+          investigation that brings its own framing, so it is
+          rendered in place of the console rather than inside it.
       ===================================================== */}
-      <section className="detail-console-section" data-reveal>
-        <div className="detail-console-container">
-          <div className="detail-console-header">
-            <span className="detail-console-tag" style={{ color: technology.color }}>
-              LIVE INTERACTIVE DOMAIN TERMINAL
-            </span>
-            <h2 className="detail-console-title">
-              OPERATIONAL TELEMETRY & SANDBOX
-            </h2>
+      {technologySlug === "blockchain" ? (
+        <BreakTheChain />
+      ) : (
+        <section className="detail-console-section" data-reveal>
+          <div className="detail-console-container">
+            <div className="detail-console-header">
+              <span className="detail-console-tag" style={{ color: technology.color }}>
+                LIVE INTERACTIVE DOMAIN TERMINAL
+              </span>
+              <h2 className="detail-console-title">
+                OPERATIONAL TELEMETRY & SANDBOX
+              </h2>
+            </div>
+            <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
           </div>
-          <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
-        </div>
-      </section>
+        </section>
+      )}
 
 
       {/* =====================================================
