@@ -110,61 +110,59 @@ function magneticReset(
 
 
 /* =====================================================
-   6-ITEM INFOGRAPHIC TECHNOLOGY CARD
+   TRANSPARENT TECHNOLOGY CARD
 ===================================================== */
 
-function InfographicCard({
+function TechCard({
   technology,
-  position,
 }: {
   technology: (typeof technologies)[number];
-  position:
-    | "left-top"
-    | "left-mid"
-    | "left-bot"
-    | "right-top"
-    | "right-mid"
-    | "right-bot";
 }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
-  const isLeft = position.startsWith("left");
+
+  const handleMove = (event: React.MouseEvent<HTMLElement>) => {
+    const element = cardRef.current;
+    if (!element) return;
+
+    const rect = element.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    element.style.setProperty("--rx", `${(0.5 - py) * 14}deg`);
+    element.style.setProperty("--ry", `${(px - 0.5) * 14}deg`);
+  };
+
+  const handleLeave = () => {
+    cardRef.current?.style.setProperty("--rx", "0deg");
+    cardRef.current?.style.setProperty("--ry", "0deg");
+  };
 
   return (
     <Link
       href={`/technology/${technology.slug}`}
-      className={`infographic-card ${technology.color} ${position}`}
+      className={`tech-card ${technology.color}`}
       data-reveal
       data-cursor="tech"
       data-cursor-color={technology.hex}
       data-cursor-symbol={technology.symbol}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
       ref={cardRef}
     >
-      <div className="info-card-inner">
-        {/* ICON ON LEFT FOR LEFT COLUMN CARDS */}
-        {isLeft && (
-          <div className="info-icon-box">
-            <span className="info-symbol">{technology.symbol}</span>
-          </div>
-        )}
-
-        <div className="info-card-content">
-          <div className="info-card-meta">
-            <span className="info-num">{technology.number}</span>
-            <span className="info-sub">{technology.subtitle}</span>
-          </div>
-          <h3 className="info-title">{technology.title}</h3>
-          <p className="info-desc">{technology.description}</p>
-        </div>
-
-        {/* ICON ON RIGHT FOR RIGHT COLUMN CARDS */}
-        {!isLeft && (
-          <div className="info-icon-box">
-            <span className="info-symbol">{technology.symbol}</span>
-          </div>
-        )}
+      <div className="tech-card-top">
+        <span>{technology.number}</span>
+        <span className="tech-arrow">↗</span>
       </div>
 
-      <div className="info-card-glow" />
+      <div className="tech-symbol">{technology.symbol}</div>
+
+      <div className="tech-content">
+        <span className="tech-subtitle">{technology.subtitle}</span>
+        <h3>{technology.title}</h3>
+        <p>{technology.description}</p>
+      </div>
+
+      <div className="tech-line" />
     </Link>
   );
 }
@@ -457,57 +455,10 @@ export default function Home() {
         </div>
 
 
-        {/* =====================================================
-            6-ITEM SYMMETRICAL INFOGRAPHIC MATRIX SHOWCASE (EXACT MATCH TO IMAGE 1)
-        ===================================================== */}
-        <div className="technology-infographic-container">
-          <div className="infographic-matrix-grid">
-            {technologies.map((tech) => (
-              <Link
-                key={tech.slug}
-                href={`/technology/${tech.slug}`}
-                className={`matrix-cell cell-${tech.color}`}
-                data-reveal
-                data-cursor="tech"
-                data-cursor-color={tech.hex}
-                data-cursor-symbol={tech.symbol}
-              >
-                {/* TOP CELL BAR: NUMBER & CORNER SYMBOL */}
-                <div className="cell-top-bar">
-                  <span className="cell-number" style={{ color: tech.hex }}>{tech.number}</span>
-                  <span className="cell-corner-symbol" style={{ color: tech.hex }}>{tech.symbol}</span>
-                </div>
-
-                {/* BOTTOM INNER DARK CARD INSET (EXACT MATCH TO REFERENCE IMAGE 1) */}
-                <div className="cell-inner-panel">
-                  <span className="cell-subtitle">{tech.subtitle}</span>
-                  <h3 className="cell-title">{tech.title}</h3>
-                  <p className="cell-description">{tech.description}</p>
-                  <div className="cell-accent-bar" style={{ background: tech.hex }} />
-                </div>
-
-                {/* CELL AMBIENT COLOR WASH BACKGROUND */}
-                <div className="cell-ambient-glow" />
-              </Link>
-            ))}
-          </div>
-
-          {/* 3D CENTRAL ORBITAL GLOBE VISUAL (MATCHES IMAGE 1) */}
-          <div className="infographic-central-3d-visual" aria-hidden="true">
-            <div className="orbital-ring ring-purple" />
-            <div className="orbital-ring ring-cyan" />
-            <div className="orbital-ring ring-blue" />
-            <div className="wireframe-globe">
-              <div className="globe-lat lat-1" />
-              <div className="globe-lat lat-2" />
-              <div className="globe-lat lat-3" />
-              <div className="globe-long long-1" />
-              <div className="globe-long long-2" />
-              <div className="globe-long long-3" />
-            </div>
-            <div className="glowing-intersection-node" />
-            <div className="core-radial-glow" />
-          </div>
+        <div className="technology-grid">
+          {technologies.map((technology) => (
+            <TechCard key={technology.number} technology={technology} />
+          ))}
         </div>
 
       </section>

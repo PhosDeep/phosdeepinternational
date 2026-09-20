@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import CyberDefenseGame from "./CyberDefenseGame";
 
 type DomainProps = {
   /** Blockchain is handled by the BREAK THE CHAIN experience, not this console. */
@@ -10,6 +11,7 @@ type DomainProps = {
 
 export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
   const [activeConsoleMode, setActiveConsoleMode] = useState<"arcade" | "terminal">("arcade");
+  const isCyberDefense = slug === "cybersecurity";
 
   return (
     <div className={`domain-console-wrapper domain-${slug}`}>
@@ -17,11 +19,10 @@ export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
       <div className="console-top-bar">
         <div className="console-status">
           <span className="console-dot" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
-          <span className="console-title">{slug.toUpperCase()} // INTERACTIVE DOMAIN GAME CONSOLE</span>
         </div>
 
         {/* TABS */}
-        <div className="console-mode-tabs">
+        {!isCyberDefense && <div className="console-mode-tabs">
           <button
             type="button"
             className={`mode-tab-btn ${activeConsoleMode === "arcade" ? "active" : ""}`}
@@ -38,7 +39,7 @@ export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
           >
             ⚡ LIVE TELEMETRY FEED
           </button>
-        </div>
+        </div>}
 
         <div className="console-controls">
           <span className="control-btn red" />
@@ -48,247 +49,12 @@ export default function DomainInteractiveConsole({ slug, color }: DomainProps) {
       </div>
 
       {/* RENDER THE SPECIFIC GAME BASED ON SLUG */}
-      {slug === "cybersecurity" && <CybersecurityGame color={color} activeMode={activeConsoleMode} />}
+      {slug === "cybersecurity" && <CyberDefenseGame color={color} />}
       {slug === "generative-ai" && <GenerativeAiGame color={color} activeMode={activeConsoleMode} />}
       {slug === "quantum" && <QuantumGame color={color} activeMode={activeConsoleMode} />}
       {slug === "cloud" && <CloudGame color={color} activeMode={activeConsoleMode} />}
       {slug === "research" && <ResearchGame color={color} activeMode={activeConsoleMode} />}
     </div>
-  );
-}
-
-
-/* =========================================================
-   GAME 1: CYBERSECURITY - THREAT PARTICLE BLAST ARCADE
-========================================================= */
-function CybersecurityGame({ color, activeMode }: { color: string; activeMode: "arcade" | "terminal" }) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [score, setScore] = useState(0);
-  const [threats, setThreats] = useState(0);
-  const [hp, setHp] = useState(100);
-  const [logs, setLogs] = useState<string[]>([
-    "[CYBER-GRID] Particle Threat Blast Game Online.",
-    "[GOAL] Click red hacker threat particles before they hit the core!",
-  ]);
-
-  const enemiesRef = useRef<{ x: number; y: number; vx: number; vy: number; radius: number }[]>([]);
-  const sparksRef = useRef<{ x: number; y: number; vx: number; vy: number; radius: number; alpha: number; color: string }[]>([]);
-  const shockwavesRef = useRef<{ x: number; y: number; radius: number; maxRadius: number; color: string; alpha: number }[]>([]);
-  const animIdRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (activeMode !== "arcade") return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 800);
-    let height = (canvas.height = 360);
-
-    let spawnCounter = 0;
-    const coreX = width / 2;
-    const coreY = height / 2;
-
-    function render() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, width, height);
-
-      // Grid background
-      ctx.strokeStyle = "rgba(255, 64, 90, 0.08)";
-      ctx.lineWidth = 1;
-      for (let x = 0; x < width; x += 40) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-
-      // Draw Center Core
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(coreX, coreY, 36, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(12, 8, 24, 0.95)";
-      ctx.fill();
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 3;
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 18;
-      ctx.stroke();
-      ctx.restore();
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 10px monospace";
-      ctx.textAlign = "center";
-      ctx.fillText("CYBER CORE", coreX, coreY - 2);
-      ctx.fillStyle = color;
-      ctx.font = "bold 9px monospace";
-      ctx.fillText(`${hp}% HP`, coreX, coreY + 12);
-
-      // Spawn Enemy Threat
-      spawnCounter++;
-      if (spawnCounter % 40 === 0) {
-        const edge = Math.floor(Math.random() * 4);
-        let ex = 0, ey = 0;
-        if (edge === 0) { ex = Math.random() * width; ey = -10; }
-        else if (edge === 1) { ex = width + 10; ey = Math.random() * height; }
-        else if (edge === 2) { ex = Math.random() * width; ey = height + 10; }
-        else { ex = -10; ey = Math.random() * height; }
-
-        const angle = Math.atan2(coreY - ey, coreX - ex);
-        const speed = 1 + Math.random() * 1.2;
-        enemiesRef.current.push({
-          x: ex,
-          y: ey,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: 7,
-        });
-      }
-
-      // Draw Shockwaves
-      for (let i = shockwavesRef.current.length - 1; i >= 0; i--) {
-        const sw = shockwavesRef.current[i];
-        sw.radius += 7;
-        sw.alpha -= 0.04;
-        if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
-          shockwavesRef.current.splice(i, 1);
-          continue;
-        }
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = sw.color;
-        ctx.globalAlpha = Math.max(0, sw.alpha);
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.restore();
-
-        // Shockwave collision with enemies
-        for (let j = enemiesRef.current.length - 1; j >= 0; j--) {
-          const e = enemiesRef.current[j];
-          if (Math.hypot(e.x - sw.x, e.y - sw.y) <= sw.radius + 15) {
-            enemiesRef.current.splice(j, 1);
-            setScore((s) => s + 100);
-            setThreats((t) => t + 1);
-          }
-        }
-      }
-
-      // Draw & update enemies
-      for (let i = enemiesRef.current.length - 1; i >= 0; i--) {
-        const e = enemiesRef.current[i];
-        e.x += e.vx;
-        e.y += e.vy;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(e.x, e.y, e.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#ff405a";
-        ctx.shadowColor = "#ff405a";
-        ctx.shadowBlur = 12;
-        ctx.fill();
-        ctx.restore();
-
-        // Core collision
-        if (Math.hypot(e.x - coreX, e.y - coreY) <= 40) {
-          enemiesRef.current.splice(i, 1);
-          setHp((h) => Math.max(0, h - 5));
-          const time = new Date().toLocaleTimeString();
-          setLogs((prev) => [`[${time}] ⚠️ CYBER CORE IMPACTED! -5% HP`, ...prev.slice(0, 3)]);
-        }
-      }
-
-      // Draw Sparks
-      for (let i = sparksRef.current.length - 1; i >= 0; i--) {
-        const sp = sparksRef.current[i];
-        sp.x += sp.vx;
-        sp.y += sp.vy;
-        sp.alpha -= 0.03;
-        if (sp.alpha <= 0) {
-          sparksRef.current.splice(i, 1);
-          continue;
-        }
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(sp.x, sp.y, sp.radius, 0, Math.PI * 2);
-        ctx.fillStyle = sp.color;
-        ctx.globalAlpha = Math.max(0, sp.alpha);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      animIdRef.current = requestAnimationFrame(render);
-    }
-
-    animIdRef.current = requestAnimationFrame(render);
-    return () => {
-      if (animIdRef.current) cancelAnimationFrame(animIdRef.current);
-    };
-  }, [activeMode, color, hp]);
-
-  function handleCanvasClick(e: React.MouseEvent<HTMLCanvasElement>) {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const cx = e.clientX - rect.left;
-    const cy = e.clientY - rect.top;
-
-    shockwavesRef.current.push({ x: cx, y: cy, radius: 5, maxRadius: 100, color, alpha: 1 });
-
-    let hits = 0;
-    for (let i = enemiesRef.current.length - 1; i >= 0; i--) {
-      const enemy = enemiesRef.current[i];
-      if (Math.hypot(enemy.x - cx, enemy.y - cy) <= 45) {
-        hits++;
-        for (let k = 0; k < 12; k++) {
-          const a = Math.random() * Math.PI * 2;
-          const s = 1 + Math.random() * 3;
-          sparksRef.current.push({ x: enemy.x, y: enemy.y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, radius: 2, alpha: 1, color: "#37e69c" });
-        }
-        enemiesRef.current.splice(i, 1);
-      }
-    }
-
-    if (hits > 0) {
-      setScore((s) => s + hits * 150);
-      setThreats((t) => t + hits);
-      const time = new Date().toLocaleTimeString();
-      setLogs((prev) => [`[${time}] 💥 DEFEATED ${hits} THREAT PARTICLES! +${hits * 150} PTS`, ...prev.slice(0, 3)]);
-    }
-  }
-
-  function triggerEMP() {
-    shockwavesRef.current.push({ x: 400, y: 180, radius: 10, maxRadius: 600, color: "#2bd9ff", alpha: 1 });
-    const time = new Date().toLocaleTimeString();
-    setLogs((prev) => [`[${time}] ⚡ SCREEN-WIDE EMP SHOCKWAVE ACTIVATED!`, ...prev.slice(0, 3)]);
-  }
-
-  return (
-    <>
-      <div className="arcade-hud-bar">
-        <div className="hud-stat-box"><span className="hud-label">DEFENSE SCORE</span><strong style={{ color }}>{score} PTS</strong></div>
-        <div className="hud-stat-box"><span className="hud-label">THREATS DEFEATED</span><strong style={{ color: "#37e69c" }}>{threats} THREATS</strong></div>
-        <div className="hud-stat-box"><span className="hud-label">CORE INTEGRITY</span><strong style={{ color: hp > 30 ? "#37e69c" : "#ff405a" }}>{hp}% HP</strong></div>
-      </div>
-
-      {activeMode === "arcade" ? (
-        <div className="particle-canvas-wrapper">
-          <div className="canvas-instruction-overlay">
-            <span>🎯 CLICK/TAP INCOMING RED HACKER PARTICLES TO DESTROY THEM & DEFEND SYSTEM CORE</span>
-          </div>
-          <canvas ref={canvasRef} className="interactive-particle-canvas" onClick={handleCanvasClick} />
-          <div className="canvas-ability-bar">
-            <button type="button" className="ability-btn emp-btn" onClick={triggerEMP}>⚡ TRIGGER EMP SHOCKWAVE PULSE</button>
-            <button type="button" className="ability-btn repair-btn" onClick={() => setHp(100)}>🛡️ REPAIR SYSTEM CORE (100% HP)</button>
-          </div>
-        </div>
-      ) : (
-        <ConsoleTerminalArea logs={logs} color={color} />
-      )}
-    </>
   );
 }
 
@@ -724,7 +490,7 @@ function ResearchGame({ color, activeMode }: { color: string; activeMode: "arcad
     setCrystalsCharged((c) => c + 1);
 
     const time = new Date().toLocaleTimeString();
-    setLogs((prev) => [`[${time}] 🔬 OPTICAL PRISM #${index} ROTATED: Laser Refracted (+220 DISCOVERY PTS)`, ...prev.slice(0, 3)]);
+    setLogs((prev) => [`[${time}] OPTICAL PRISM #${index} ROTATED: Laser Refracted (+220 DISCOVERY PTS)`, ...prev.slice(0, 3)]);
   }
 
   function autoAlignMatrix() {
@@ -732,7 +498,7 @@ function ResearchGame({ color, activeMode }: { color: string; activeMode: "arcad
     setDiscoveryScore((d) => d + 900);
     setLatticeStrength(100);
     const time = new Date().toLocaleTimeString();
-    setLogs((prev) => [`[${time}] 💠 LATTICE VECTOR RE-ENCRYPTION: Laser Refractor Perfectly Aligned!`, ...prev.slice(0, 3)]);
+    setLogs((prev) => [`[${time}] LATTICE VECTOR RE-ENCRYPTION: Laser Refractor Perfectly Aligned!`, ...prev.slice(0, 3)]);
   }
 
   return (
@@ -746,49 +512,21 @@ function ResearchGame({ color, activeMode }: { color: string; activeMode: "arcad
       {activeMode === "arcade" ? (
         <div className="particle-canvas-wrapper" style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
           <div className="canvas-instruction-overlay" style={{ position: "relative", top: 0, left: 0, transform: "none" }}>
-            <span>🔬 CLICK OPTICAL PRISMS TO ROTATE LASER BEAMS INTO TARGET RESEARCH CRYSTALS!</span>
+            <span>CLICK OPTICAL PRISMS TO ROTATE LASER BEAMS INTO TARGET RESEARCH CRYSTALS!</span>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px", height: "280px", alignItems: "center" }}>
             {prisms.map((p, idx) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => rotatePrism(idx)}
-                style={{
-                  height: "100px",
-                  background: "rgba(6, 26, 18, 0.9)",
-                  border: "2px solid #37e69c",
-                  borderRadius: "12px",
-                  color: "#37e69c",
-                  fontFamily: "monospace",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  boxShadow: "0 0 15px rgba(55, 230, 156, 0.3)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <div style={{ transform: `rotate(${p.angle}deg)`, fontSize: "24px", transition: "transform 0.3s ease" }}>
-                  📐 ↗
-                </div>
+              <button key={p.id} type="button" onClick={() => rotatePrism(idx)} style={{ height: "100px", background: "rgba(6, 26, 18, 0.9)", border: "2px solid #37e69c", borderRadius: "12px", color: "#37e69c", fontFamily: "monospace", fontSize: "14px", fontWeight: "bold", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", boxShadow: "0 0 15px rgba(55, 230, 156, 0.3)", transition: "all 0.3s ease" }}>
+                <div style={{ transform: `rotate(${p.angle}deg)`, fontSize: "24px", transition: "transform 0.3s ease" }}>PRISM ↗</div>
                 <span>{p.label} [{p.angle}°]</span>
               </button>
             ))}
           </div>
 
           <div className="canvas-ability-bar" style={{ position: "relative", inset: "auto" }}>
-            <button type="button" className="ability-btn emp-btn" onClick={autoAlignMatrix} style={{ borderColor: "#37e69c" }}>
-              💠 LATTICE VECTOR RE-ENCRYPTION
-            </button>
-            <button type="button" className="ability-btn repair-btn" onClick={() => setLatticeStrength(100)}>
-              🔬 RE-CRYSTALLIZE LATTICE (100%)
-            </button>
+            <button type="button" className="ability-btn emp-btn" onClick={autoAlignMatrix} style={{ borderColor: "#37e69c" }}>LATTICE VECTOR RE-ENCRYPTION</button>
+            <button type="button" className="ability-btn repair-btn" onClick={() => setLatticeStrength(100)}>RE-CRYSTALLIZE LATTICE (100%)</button>
           </div>
         </div>
       ) : (
@@ -807,9 +545,7 @@ function ConsoleTerminalArea({ logs, color }: { logs: string[]; color: string })
     <div className="console-log-area">
       <div className="console-log-header">
         <span>REALTIME THREAT TELEMETRY FEED</span>
-        <span className="console-ping" style={{ color }}>
-          LIVE SYNC
-        </span>
+        <span className="console-ping" style={{ color }}>LIVE SYNC</span>
       </div>
       <div className="console-log-lines">
         {logs.map((log, i) => (

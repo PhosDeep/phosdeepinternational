@@ -311,9 +311,8 @@ export default async function TechnologyDetailPage({
       {/* =====================================================
           INTERACTIVE DOMAIN SECTION
 
-          Blockchain runs BREAK THE CHAIN followed by the new
-          BLOCKCHAIN PLAYGROUND below it.
-          All other technology pages render the console as before.
+          Blockchain: Break the Chain game + Blockchain Playground.
+          All other technology pages: DomainInteractiveConsole.
       ===================================================== */}
       {technologySlug === "blockchain" ? (
         <>
@@ -323,14 +322,6 @@ export default async function TechnologyDetailPage({
       ) : (
         <section className="detail-console-section" data-reveal>
           <div className="detail-console-container">
-            <div className="detail-console-header">
-              <span className="detail-console-tag" style={{ color: technology.color }}>
-                LIVE INTERACTIVE DOMAIN TERMINAL
-              </span>
-              <h2 className="detail-console-title">
-                OPERATIONAL TELEMETRY &amp; SANDBOX
-              </h2>
-            </div>
             <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
           </div>
         </section>
