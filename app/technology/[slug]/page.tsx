@@ -13,6 +13,7 @@ import CloudVisual from "../CloudVisual";
 import BlockchainVisual from "../BlockchainVisual";
 import ResearchVisual from "../ResearchVisual";
 import BreakTheChain from "../BreakTheChain";
+import BlockchainPlayground from "../blockchain/BlockchainPlayground";
 
 const technologyData = {
   cybersecurity: {
@@ -310,12 +311,15 @@ export default async function TechnologyDetailPage({
       {/* =====================================================
           INTERACTIVE DOMAIN SECTION
 
-          Blockchain runs BREAK THE CHAIN — a self-contained
-          investigation that brings its own framing, so it is
-          rendered in place of the console rather than inside it.
+          Blockchain runs BREAK THE CHAIN followed by the new
+          BLOCKCHAIN PLAYGROUND below it.
+          All other technology pages render the console as before.
       ===================================================== */}
       {technologySlug === "blockchain" ? (
-        <BreakTheChain />
+        <>
+          <BreakTheChain />
+          <BlockchainPlayground />
+        </>
       ) : (
         <section className="detail-console-section" data-reveal>
           <div className="detail-console-container">
@@ -324,7 +328,7 @@ export default async function TechnologyDetailPage({
                 LIVE INTERACTIVE DOMAIN TERMINAL
               </span>
               <h2 className="detail-console-title">
-                OPERATIONAL TELEMETRY & SANDBOX
+                OPERATIONAL TELEMETRY &amp; SANDBOX
               </h2>
             </div>
             <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
