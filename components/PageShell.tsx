@@ -33,7 +33,11 @@ export default function PageShell({
   }, []);
 
   return (
-    <main className={`site inner-site ${className}`} id="main-content">
+    <main
+      className={`site inner-site ${className}`}
+      id="main-content"
+      suppressHydrationWarning
+    >
 
       {/* =====================================================
           GLOBAL INTERFACE
