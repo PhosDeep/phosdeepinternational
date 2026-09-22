@@ -240,7 +240,7 @@ a {
 }
 
 .custom-cursor-ring.is-active .cursor-corner {
-  opacity: 1;
+  opacity: 0.82;
 }
 
 .cursor-corner-tl {
@@ -619,7 +619,10 @@ footer {
 
   position: absolute;
 
-  inset: 0;
+  top: 8%;
+  right: 27%;
+  bottom: 2%;
+  left: 15%;
 
   z-index: -5;
 
@@ -1702,7 +1705,7 @@ footer {
   width: 52px;
   height: 52px;
 
-  opacity: 0.9;
+  opacity: 1;
 }
 
 /* =========================================================
@@ -4211,6 +4214,100 @@ footer .logo {
   overflow: hidden;
 }
 
+.technology-detail-visual {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.research-energy-stream {
+  position: absolute !important;
+
+  top: 8%;
+  right: 27%;
+  bottom: 2%;
+  left: 15%;
+
+  z-index: 0;
+  opacity: 0.78;
+  pointer-events: auto;
+}
+
+.research-formula-stream {
+  position: absolute !important;
+  top: 0;
+  right: auto !important;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 52%;
+  height: 100%;
+  opacity: 0.9;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 18%, black 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 78%, transparent 100%);
+}
+
+.research-signal {
+  position: absolute;
+  top: 22%;
+  right: 7%;
+  z-index: 3;
+  width: 240px;
+  padding: 14px;
+  border: 1px solid rgba(55, 230, 156, 0.2);
+  background: rgba(5, 8, 10, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.research-signal-header,
+.research-signal-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+}
+
+.research-signal-header {
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.research-signal-header span:last-child {
+  color: #37e69c;
+}
+
+.research-signal-graph {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 120px;
+  border-bottom: 1px solid rgba(55, 230, 156, 0.15);
+  background: repeating-linear-gradient(to top, transparent 0, transparent 23px, rgba(55, 230, 156, 0.05) 24px);
+}
+
+.research-signal-graph span {
+  flex: 1;
+  min-width: 3px;
+  background: linear-gradient(to top, rgba(43, 217, 255, 0.25), #37e69c);
+  transform-origin: bottom;
+  animation: researchSignalBar 1.5s ease-in-out infinite alternate;
+}
+
+.research-signal-axis {
+  padding-top: 7px;
+  color: rgba(255, 255, 255, 0.18);
+}
+
+@keyframes researchSignalBar {
+  to { transform: scaleY(0.55); }
+}
+
 .detail-hero::before {
   content: "";
 
@@ -4369,6 +4466,22 @@ footer .logo {
       255,
       255,
       0.08);
+
+  overflow: hidden;
+}
+
+.capabilities-flow-ribbons {
+  z-index: 0;
+  opacity: 0.9;
+  pointer-events: auto;
+  mask-image: linear-gradient(to right, transparent, black 18%, black 78%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 78%, transparent);
+}
+
+.capabilities-heading,
+.capabilities-list {
+  position: relative;
+  z-index: 1;
 }
 
 .capabilities-heading>span {
@@ -4523,6 +4636,21 @@ footer .logo {
         220,
         0.07),
       transparent 55%);
+
+  overflow: hidden;
+}
+
+.cta-flow-ribbons {
+  z-index: 0;
+  opacity: 0.42;
+  pointer-events: auto;
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.detail-cta > :not(.cta-flow-ribbons) {
+  position: relative;
+  z-index: 1;
 }
 
 .detail-cta>span {
@@ -4616,6 +4744,25 @@ footer .logo {
       140px 24px 100px;
   }
 
+  .research-energy-stream {
+    top: 12%;
+    right: 19%;
+    bottom: 4%;
+    left: 15%;
+    opacity: 0.6;
+  }
+
+  .research-formula-stream {
+    width: 46%;
+    opacity: 0.55;
+  }
+
+  .research-signal {
+    right: 24px;
+    transform: scale(0.8);
+    transform-origin: top right;
+  }
+
   .detail-symbol {
     right: -10vw;
 
@@ -4641,6 +4788,18 @@ footer .logo {
 }
 
 @media (max-width: 650px) {
+
+  .research-energy-stream {
+    display: none;
+  }
+
+  .research-formula-stream {
+    display: none;
+  }
+
+  .research-signal {
+    display: none;
+  }
 
   .inner-hero-meta,
   .detail-meta {

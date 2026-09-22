@@ -11,7 +11,9 @@ import GenerativeAIVisual from "../GenerativeAIVisual";
 import QuantumVisual from "../QuantumVisual";
 import CloudVisual from "../CloudVisual";
 import BlockchainVisual from "../BlockchainVisual";
-import ResearchVisual from "../ResearchVisual";
+import EnergyStream from "../EnergyStream";
+import FormulaStream from "../FormulaStream";
+import FlowRibbons from "../FlowRibbons";
 import BreakTheChain from "../BreakTheChain";
 
 const technologyData = {
@@ -120,6 +122,22 @@ const technologyData = {
 
 type TechnologySlug = keyof typeof technologyData;
 
+const researchSignalBars = [42, 68, 51, 82, 63, 91, 74, 56, 88, 70, 96, 79];
+
+function ResearchSignal() {
+  return (
+    <div className="research-signal" aria-hidden="true">
+      <div className="research-signal-header"><span>RESEARCH SIGNAL</span><span>LIVE</span></div>
+      <div className="research-signal-graph">
+        {researchSignalBars.map((height, index) => (
+          <span key={index} style={{ height: `${height}%`, animationDelay: `${index * 0.08}s` }} />
+        ))}
+      </div>
+      <div className="research-signal-axis"><span>01</span><span>05</span><span>10</span><span>12</span></div>
+    </div>
+  );
+}
+
 export function generateStaticParams() {
   return Object.keys(technologyData).map((slug) => ({
     slug,
@@ -171,7 +189,21 @@ function TechnologyVisual({
       return <BlockchainVisual />;
 
     case "research":
-      return <ResearchVisual />;
+      return (
+        <EnergyStream
+          className="research-energy-stream"
+          colors={["#0BAF96", "#00D9A1", "#37E69C", "#42E6FF", "#D0FFF5"]}
+          background="transparent"
+          particles={150000}
+          shape={{ height: 7, waist: 1.6, flare: 4, twist: 0.7 }}
+          size={5}
+          glow={1}
+          repel={4}
+          flow={1.2}
+          spin={0.45}
+          core={{ show: true, diameter: 1.8, color: "#37E69C", spin: 1 }}
+        />
+      );
 
     default:
       return null;
@@ -224,6 +256,10 @@ export default async function TechnologyDetailPage({
             slug={technologySlug}
           />
         </div>
+
+        {technologySlug === "research" && <ResearchSignal />}
+
+        {technologySlug === "research" && <FormulaStream className="research-formula-stream" />}
 
 
         {/* -----------------------------------------------------
@@ -331,6 +367,15 @@ export default async function TechnologyDetailPage({
 
       <section className="capabilities-section" data-reveal>
 
+        <FlowRibbons
+          className="capabilities-flow-ribbons"
+          colorA={technology.color}
+          colorB="#2BD9FF"
+          count={220}
+          speed={0.7}
+          strength={13}
+        />
+
         <div className="capabilities-heading">
 
           <span>
@@ -394,6 +439,15 @@ export default async function TechnologyDetailPage({
       ===================================================== */}
 
       <section className="detail-cta" data-reveal>
+
+        <FlowRibbons
+          className="cta-flow-ribbons"
+          colorA={technology.color}
+          colorB="#2BD9FF"
+          count={180}
+          speed={0.5}
+          strength={9}
+        />
 
         <span>
           PHOSDEEP INTERNATIONAL
