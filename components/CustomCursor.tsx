@@ -20,15 +20,13 @@ export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<CursorState>(DEFAULT_STATE);
-  const [enabled] = useState(() =>
-    typeof window !== "undefined" &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  );
+  const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!fine) return;
+    setEnabled(true);
 
     const position = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const ringPosition = { ...position };

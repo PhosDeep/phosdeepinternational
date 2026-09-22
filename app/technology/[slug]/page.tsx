@@ -15,6 +15,10 @@ import EnergyStream from "../EnergyStream";
 import FormulaStream from "../FormulaStream";
 import FlowRibbons from "../FlowRibbons";
 import BreakTheChain from "../BreakTheChain";
+import BlockchainPlayground from "../blockchain/BlockchainPlayground";
+import { getRobotFramesData } from "@/components/robot-sequence/getRobotFrames";
+import RobotScrollSequence from "@/components/robot-sequence/RobotScrollSequence";
+import ParallaxUnfurlingGallery from "@/components/ui/3d-parallax-unfurling-gallery";
 
 const technologyData = {
   cybersecurity: {
@@ -232,6 +236,8 @@ export default async function TechnologyDetailPage({
   const technologySlug =
     slug as TechnologySlug;
 
+  const robotFramesData =
+    technologySlug === "generative-ai" ? getRobotFramesData() : null;
 
   return (
     <PageShell
@@ -239,120 +245,137 @@ export default async function TechnologyDetailPage({
     >
 
       {/* =====================================================
-          HERO
+          CINEMATIC HERO: ROBOT SCROLL SEQUENCE (GENERATIVE AI)
+          OR STANDARD HERO (OTHER DOMAINS)
       ===================================================== */}
-
-      <section className="detail-hero" data-reveal>
-
-        {/* -----------------------------------------------------
-            BACKGROUND VISUAL
-        ----------------------------------------------------- */}
-
-        <div
-          className="technology-detail-visual"
-          aria-hidden="true"
-        >
-          <TechnologyVisual
-            slug={technologySlug}
+      {technologySlug === "generative-ai" &&
+        robotFramesData &&
+        robotFramesData.frameCount > 0 ? (
+        <>
+          <RobotScrollSequence
+            frameUrls={robotFramesData.frameUrls}
+            frameCount={robotFramesData.frameCount}
+            naturalWidth={robotFramesData.naturalWidth}
+            naturalHeight={robotFramesData.naturalHeight}
+            scrollHeightVh={1000}
           />
-        </div>
+          <ParallaxUnfurlingGallery />
+        </>
+      ) : (
+        <section className="detail-hero" data-reveal>
+
+          {/* -----------------------------------------------------
+              BACKGROUND VISUAL
+          ----------------------------------------------------- */}
+
+          <div
+            className="technology-detail-visual"
+            aria-hidden="true"
+          >
+            <TechnologyVisual
+              slug={technologySlug}
+            />
+          </div>
 
         {technologySlug === "research" && <ResearchSignal />}
 
         {technologySlug === "research" && <FormulaStream className="research-formula-stream" />}
 
 
-        {/* -----------------------------------------------------
-            HERO OVERLAY
-        ----------------------------------------------------- */}
+          {/* -----------------------------------------------------
+              HERO OVERLAY
+          ----------------------------------------------------- */}
 
-        <div
-          className="technology-detail-overlay"
-          aria-hidden="true"
-        />
-
-
-        {/* -----------------------------------------------------
-            META
-        ----------------------------------------------------- */}
-
-        <div className="detail-meta">
-
-          <span>
-            PHOSDEEP / TECHNOLOGY /{" "}
-            {technology.number}
-          </span>
-
-          <span>
-            {technology.subtitle}
-          </span>
-
-        </div>
+          <div
+            className="technology-detail-overlay"
+            aria-hidden="true"
+          />
 
 
-        {/* -----------------------------------------------------
-            HERO CONTENT
-        ----------------------------------------------------- */}
+          {/* -----------------------------------------------------
+              META
+          ----------------------------------------------------- */}
 
-        <div className="detail-title">
+          <div className="detail-meta">
 
-          <span
-            className="detail-eyebrow"
+            <span>
+              PHOSDEEP / TECHNOLOGY /{" "}
+              {technology.number}
+            </span>
+
+            <span>
+              {technology.subtitle}
+            </span>
+
+          </div>
+
+
+          {/* -----------------------------------------------------
+              HERO CONTENT
+          ----------------------------------------------------- */}
+
+          <div className="detail-title">
+
+            <span
+              className="detail-eyebrow"
+              style={{
+                color: technology.color,
+              }}
+            >
+              {technology.subtitle}
+            </span>
+
+
+            <h1>
+              {technology.title}
+            </h1>
+
+
+            <p>
+              {technology.intro}
+            </p>
+
+          </div>
+
+
+          {/* -----------------------------------------------------
+              DOMAIN INDICATOR
+          ----------------------------------------------------- */}
+
+          <div
+            className="detail-domain-indicator"
             style={{
               color: technology.color,
             }}
+            aria-hidden="true"
           >
-            {technology.subtitle}
-          </span>
 
+            <span className="detail-domain-number">
+              {technology.number}
+            </span>
 
-          <h1>
-            {technology.title}
-          </h1>
+            <span className="detail-domain-label">
+              DOMAIN
+            </span>
 
+          </div>
 
-          <p>
-            {technology.intro}
-          </p>
-
-        </div>
-
-
-        {/* -----------------------------------------------------
-            DOMAIN INDICATOR
-        ----------------------------------------------------- */}
-
-        <div
-          className="detail-domain-indicator"
-          style={{
-            color: technology.color,
-          }}
-          aria-hidden="true"
-        >
-
-          <span className="detail-domain-number">
-            {technology.number}
-          </span>
-
-          <span className="detail-domain-label">
-            DOMAIN
-          </span>
-
-        </div>
-
-      </section>
+        </section>
+      )}
 
 
       {/* =====================================================
           INTERACTIVE DOMAIN SECTION
 
-          Blockchain runs BREAK THE CHAIN — a self-contained
-          investigation that brings its own framing, so it is
-          rendered in place of the console rather than inside it.
+          Blockchain: Break the Chain game + Blockchain Playground.
+          All other technology pages: DomainInteractiveConsole.
       ===================================================== */}
       {technologySlug === "blockchain" ? (
-        <BreakTheChain />
-      ) : (
+        <>
+          <BreakTheChain />
+          <BlockchainPlayground />
+        </>
+      ) : technologySlug === "generative-ai" ? null : (
         <section className="detail-console-section" data-reveal>
           <div className="detail-console-container">
             <DomainInteractiveConsole slug={technologySlug} color={technology.color} />
