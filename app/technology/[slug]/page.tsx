@@ -9,6 +9,7 @@ import DomainInteractiveConsole from "@/components/DomainInteractiveConsole";
 import CyberSecurityVisual from "../CyberSecurityVisual";
 import GenerativeAIVisual from "../GenerativeAIVisual";
 import QuantumVisual from "../QuantumVisual";
+import VectorWordmark from "../VectorWordmark";
 import CloudVisual from "../CloudVisual";
 import BlockchainVisual from "../BlockchainVisual";
 import EnergyStream from "../EnergyStream";
@@ -326,9 +327,27 @@ export default async function TechnologyDetailPage({
             </span>
 
 
-            <h1>
-              {technology.title}
-            </h1>
+            {technologySlug === "quantum" ? (
+              <div className="detail-wordmark" aria-label={technology.title}>
+                <VectorWordmark
+                  background="transparent"
+                  textColor="#ffffff"
+                  shade="#557cff"
+                  accent="#2bd9ff"
+                  font={{
+                    fontFamily: "Space Grotesk",
+                    fontWeight: 600,
+                    fontSize: "250px",
+                    lineHeight: "1em",
+                    letterSpacing: "-0.04em",
+                  }}
+                />
+              </div>
+            ) : (
+              <h1>
+                {technology.title}
+              </h1>
+            )}
 
 
             <p>
